@@ -31,11 +31,12 @@ class Player:
         print(f"Hunger: {self.hunger}")
         print(f"Inventory: {self.inventory}")
     def fight(self, opponent,item):
-        type=input("Would you like to use your weapon? yes/no").lower()
+        type=input("Would you like to use a weapon? yes/no").lower()
         if type=="yes":
-            for i in range(self.inventory):
-                print(self.inventory[i]["name"])
-        opponent.health-=x
+            print("Weapons:")
+            for i in self.inventory:
+                print(f"{i.index(i)+1}. {i}")
+        #opponent.health-=x
         if opponent.health <= 0:
             opponent.health = 0
             print(f"{opponent.name} is DEAD.")
@@ -43,7 +44,9 @@ class Player:
             print(f"Attack successful, {opponent.name} lost {self.inventory["atk"]} health.")
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
-
-player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), 5, ['glock'] )
+#               name,  health, strength,               defense                 hunger          inventory balance
+player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['glock'], 5)
 
 player.checkStats()
+john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['glock'], 5)
+player.fight(john, ['glock'])
