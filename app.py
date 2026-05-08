@@ -2,16 +2,88 @@ import random
 items = [
     {
         "id": 1,
-        "name": "twig",
-        "atk": 5,
+        "name": "Twig",
+        "atk": 5,  
         "type": "weapon",
     },
     {
         "id": 2,
-        "name": "glock",
+        "name": "Glock",
         "atk": 10,
         "type": "weapon",
-    }
+    },
+    {
+        "id": 3,
+        "name": "Textbook Troika",
+        "atk": 20,
+        "type": "weapon",
+    },
+    {
+        "id": 4, 
+        "name": "Helmet",
+        "def": 10,
+        "type": "armor",
+    },
+    {
+        "id": 5, 
+        "name": "Chestplate",
+        "def": 20,
+        "type": "armor",
+    },
+    {
+        "id": 6, 
+        "name": "Leggings",
+        "def": 10,
+        "type": "armor",
+    },
+    {
+        "id": 7, 
+        "name": "Excalibur",
+        "atk": 1,
+        "type": "weapon",
+    },
+    {
+        "id": 8, 
+        "name": "Impenetrable Armor",
+        "def": 1,
+        "type": "armor"
+    },
+    {
+        "id": 9, 
+        "name": "Pebble",
+        "atk": 25,
+        "type": "weapon",
+    },
+    {
+        "id": 10, 
+        "name": ""
+        "hunger":
+        "type": 
+    },
+    {
+        "id": 11,
+        "name":
+        "atk/def/hp":
+        "type": 
+    },
+    {
+        "id": 12,
+        "name":
+        "atk/def/hp":
+        "type": 
+    },
+    {
+        "id": 13, 
+        "name":
+        "atk/def/hp":
+        "type": 
+    },
+    {
+        "id": 14,
+        "name":
+        "atk/def/hp":
+        "type": 
+    },
 ]
 
 class Player:
@@ -45,8 +117,8 @@ class Player:
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
-player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['glock'], 5)
+player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5)
 
 player.checkStats()
-john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['glock'], 5)
+john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5)
 player.fight(john, ['glock'])
