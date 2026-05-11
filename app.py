@@ -54,36 +54,6 @@ items = [
         "atk": 25,
         "type": "weapon",
     },
-    {
-        "id": 10, 
-        "name": ""
-        "hunger":
-        "type": 
-    },
-    {
-        "id": 11,
-        "name":
-        "atk/def/hp":
-        "type": 
-    },
-    {
-        "id": 12,
-        "name":
-        "atk/def/hp":
-        "type": 
-    },
-    {
-        "id": 13, 
-        "name":
-        "atk/def/hp":
-        "type": 
-    },
-    {
-        "id": 14,
-        "name":
-        "atk/def/hp":
-        "type": 
-    },
 ]
 
 class Player:
@@ -103,17 +73,19 @@ class Player:
         print(f"Hunger: {self.hunger}")
         print(f"Inventory: {self.inventory}")
     def fight(self, opponent,item):
-        type=input("Would you like to use a weapon? yes/no").lower()
+        type=input("Would you like to use a weapon? [yes/no]\n- ").lower()
         if type=="yes":
             print("Weapons:")
             for i in self.inventory:
                 print(f"{i.index(i)+1}. {i}")
         #opponent.health-=x
-        if opponent.health <= 0:
-            opponent.health = 0
-            print(f"{opponent.name} is DEAD.")
-        elif opponent.health > 0:
-            print(f"Attack successful, {opponent.name} lost {self.inventory["atk"]} health.")
+        for self.inventory in items:
+            if self.inventory == items[i]["name"]:
+                if opponent.health <= 0:
+                    opponent.health = 0
+                    print(f"{opponent.name} is DEAD.")
+                elif opponent.health > 0:
+                    print(f"Attack successful, {opponent.name} lost {self.inventory["atk"]} health.")
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
