@@ -2,16 +2,52 @@ import random
 items = [
     {
         "id": 1,
-        "name": "twig",
-        "atk": 5,
+        "name": "Twig",
+        "atk": 5,  
         "type": "weapon",
     },
     {
         "id": 2,
-        "name": "glock",
+        "name": "Glock",
         "atk": 10,
         "type": "weapon",
-    }
+    },
+    {
+        "id": 3,
+        "name": "Textbook Troika",
+        "atk": 20,
+        "type": "weapon",
+    },
+    {
+        "id": 4, 
+        "name": "Duck",
+        "def": 10,
+        "type": "armor",
+    },
+    {
+        "id": 5, 
+        "name": "Car",
+        "def": 20,
+        "type": "armor",
+    },
+    {
+        "id": 7, 
+        "name": "Excalibur",
+        "atk": 1,
+        "type": "weapon",
+    },
+    {
+        "id": 8, 
+        "name": "Impenetrable Armor",
+        "def": 1,
+        "type": "armor"
+    },
+    {
+        "id": 9, 
+        "name": "Pebble",
+        "atk": 25,
+        "type": "weapon",
+    },
 ]
 
 class Player:
@@ -23,27 +59,11 @@ class Player:
         self.hunger = hunger
         self.inventory = inventory
         self.balance = balance
-    def checkStats(self):
-        print(f"Name: {self.name}")
-        print(f"Health: {self.health}")
-        print(f"Strength: {self.strength}")
-        print(f"Defense: {self.defense}")
-        print(f"Hunger: {self.hunger}")
-        print(f"Inventory: {self.inventory}")
-    def fight(self):
-        type=input("Would you like to use your weapon? yes/no").lower()
-        if type=="yes":
-            whatweapon=input("What weapon would you like to use?")
-            for i in range(self.inventory):
-                if self.inventory[i]["type"]=="weapon":
-                    print(self.inventory[i]["name"])
-                    if whatweapon==self.inventory[i]["name"]:
-                        x=self.inventory[i]["atk"]
-                        print(x)
-
+    def work(self):
+        for i in range(5):
+            print(f"Items in the shop:{items[random.randint(0,7)]["name"]}")
+        askbuy=input("Would you like to buy anything from the shop?\n*type the name of the item you want\n-")
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
-
-player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['glock'], 5 )
-
-player.checkStats()
-player.fight()
+player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5)
+john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5)
+player.work()
