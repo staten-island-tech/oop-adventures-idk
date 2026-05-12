@@ -47,7 +47,7 @@ items = [
         "id": 7, 
         "name": "Impenetrable Armor",
         "def": 1,
-        "type": "armor"
+        "type": "armor",
         "cost": 100,
     },
     {
@@ -55,10 +55,7 @@ items = [
         "name": "Pebble",
         "atk": 25,
         "type": "weapon",
-<<<<<<< HEAD
         "cost": 20,
-=======
->>>>>>> 21a7bc32630b432e4a13ec26ee330a0b882008f1
     },
 ]
 
@@ -85,17 +82,6 @@ class Player:
             for i in self.inventory:
                 print(f"{i.index(i)+1}. {i}")
         #opponent.health-=x
-<<<<<<< HEAD
-        if opponent.health <= 0:
-            opponent.health = 0
-            print(f"{opponent.name} is DEAD.")
-        elif opponent.health > 0:
-            print(f"Attack successful, {opponent.name} lost {self.inventory["atk"]} health.")
-    def marketbuy(self, items):
-        for i in range(len(items)):
-            print(items[i]["name"])
-
-=======
         for self.inventory in items:
             if self.inventory == items[i]["name"]:
                 if opponent.health <= 0:
@@ -103,7 +89,18 @@ class Player:
                     print(f"{opponent.name} is DEAD.")
                 elif opponent.health > 0:
                     print(f"Attack successful, {opponent.name} lost {self.inventory["atk"]} health.")
->>>>>>> 21a7bc32630b432e4a13ec26ee330a0b882008f1
+    def shop(self):
+        ask=input(f"What would you like to buy{items}")
+        for i in range(len(items)):
+            if ask==items[i]["name"]:
+                Result=self.balance-items[i]["cost"]
+                if Result>0:
+                    self.balance=Result
+                    self.inventory.append(items[i])
+                    print(self.inventory)
+                    print(f"You have {self.balance} coins left!")
+                elif Result<0:
+                    print("insufficient funds!")
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
