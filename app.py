@@ -24,7 +24,7 @@ items = [
     {
         "id": 4, 
         "name": "Duck",
-        "def": 10,
+        "hp": 10,
         "type": "armor",
         "cost": 10,
 
@@ -46,7 +46,7 @@ items = [
     {
         "id": 7, 
         "name": "Impenetrable Armor",
-        "def": 1,
+        "hp": 1,
         "type": "armor",
         "cost": 100,
     },
@@ -101,6 +101,11 @@ class Player:
                     print(f"You have {self.balance} coins left!")
                 elif Result<0:
                     print("insufficient funds!")
+    def armorequip(self):
+        for i in self.inventory:
+            print(self.inventory[i]["armor"])
+        else:
+            print("You have no armor!")
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
