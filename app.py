@@ -79,7 +79,7 @@ class Player:
             for i in self.inventory:
                 print(f"{i.index(i)+1}. {i}")
         #opponent.health-=x
-        for self.inventory in items:
+        for name in items:
             if self.inventory == items[i]["name"]:
                 if opponent.health <= 0:
                     opponent.health = 0
