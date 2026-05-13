@@ -5,54 +5,57 @@ items = [
         "name": "Twig",
         "atk": 5,  
         "type": "weapon",
+        "cost": 6,
     },
     {
         "id": 2,
         "name": "Glock",
         "atk": 10,
         "type": "weapon",
+        "cost": 10,
     },
     {
         "id": 3,
         "name": "Textbook Troika",
         "atk": 20,
         "type": "weapon",
+        "cost": 20,
     },
     {
         "id": 4, 
-        "name": "Helmet",
-        "def": 10,
+        "name": "Duck",
+        "hp": 10,
         "type": "armor",
+        "cost": 10,
+
     },
     {
         "id": 5, 
-        "name": "Chestplate",
+        "name": "Car",
         "def": 20,
         "type": "armor",
+        "cost": 15,
     },
     {
         "id": 6, 
-        "name": "Leggings",
-        "def": 10,
-        "type": "armor",
-    },
-    {
-        "id": 7, 
         "name": "Excalibur",
         "atk": 1,
         "type": "weapon",
+        "cost": 100,
+    },
+    {
+        "id": 7, 
+        "name": "Impenetrable Armor",
+        "hp": 1,
+        "type": "armor",
+        "cost": 100,
     },
     {
         "id": 8, 
-        "name": "Impenetrable Armor",
-        "def": 1,
-        "type": "armor"
-    },
-    {
-        "id": 9, 
         "name": "Pebble",
         "atk": 25,
         "type": "weapon",
+        "cost": 20,
     },
 ]
 
@@ -86,6 +89,23 @@ class Player:
                     print(f"{opponent.name} is DEAD.")
                 elif opponent.health > 0:
                     print(f"Attack successful, {opponent.name} lost {self.inventory["atk"]} health.")
+    def shop(self):
+        ask=input(f"What would you like to buy{items}")
+        for i in range(len(items)):
+            if ask==items[i]["name"]:
+                Result=self.balance-items[i]["cost"]
+                if Result>0:
+                    self.balance=Result
+                    self.inventory.append(items[i])
+                    print(self.inventory)
+                    print(f"You have {self.balance} coins left!")
+                elif Result<0:
+                    print("insufficient funds!")
+    def armorequip(self):
+        for i in self.inventory:
+            print(self.inventory[i]["armor"])
+        else:
+            print("You have no armor!")
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
