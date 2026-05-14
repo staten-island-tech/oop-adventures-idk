@@ -105,24 +105,27 @@ class Player:
     def armorequip(self):
         if self.armorquip==0:
             for i in self.inventory:
-                armorr=input(self.inventory[i]["type"]["armor"]["name"])
-                if armorr==self.inventory[i]["type"]["armor"]["name"]:
-                    print("Armor successfully equipped!")
-                    ovl=self.hp+self.inventory[i]["type"]["armor"]["hp"]
-                    self.hp=ovl
-            else:
-                print("You have no armor!")
-        elif self.armorquip==1:            
-            askarmor=input("You already have armor equipped! would you like to replace it?")
-            if askarmor=="yes":
-                self.hp=100
-                for i in self.inventory:
-                    armorr=input(self.inventory[i]["type"]["armor"]["name"])
-                    if armorr==self.inventory[i]["type"]["armor"]["name"]:
+                if self.inventory[i]["type"]=="armor":
+                    John=input(self.inventory[i]["name"])
+                    if John==self.inventory[i]["name"]:
                         print("Armor successfully equipped!")
                         ovl=self.hp+self.inventory[i]["type"]["armor"]["hp"]
                         self.hp=ovl
-
+            else:
+                print("You have no armor!")
+        elif self.armorquip==1:            
+            askarmor=input("You already have armor equipped! would you like to replace it?").lower()
+            if askarmor=="yes":
+                self.hp=100
+                for i in self.inventory:
+                    if self.inventory[i]["type"]=="armor":
+                        John=input(self.inventory[i]["name"])
+                        if John==self.inventory[i]["name"]:
+                            print("Armor successfully equipped!")
+                            ovl=self.hp+self.inventory[i]["type"]["armor"]["hp"]
+                            self.hp=ovl
+            else:
+                print("Ok")
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
