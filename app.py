@@ -23,35 +23,13 @@ items = [
     },
     {
         "id": 4, 
-        "name": "Duck",
-        "hp": 10,
-        "type": "armor",
-        "cost": 10,
-
-    },
-    {
-        "id": 5, 
-        "name": "Car",
-        "def": 20,
-        "type": "armor",
-        "cost": 15,
-    },
-    {
-        "id": 6, 
         "name": "Excalibur",
         "atk": 1,
         "type": "weapon",
         "cost": 100,
     },
     {
-        "id": 7, 
-        "name": "Impenetrable Armor",
-        "hp": 1,
-        "type": "armor",
-        "cost": 100,
-    },
-    {
-        "id": 8, 
+        "id": 5, 
         "name": "Pebble",
         "atk": 25,
         "type": "weapon",
@@ -82,13 +60,14 @@ class Player:
             for i in self.inventory:
                 print(f"{i.index(i)+1}. {i}")
         #opponent.health-=x
-        for name in items:
-            if self.inventory == items[i]["name"]:
+        for name in range(len(items)):
+            print(items[name]["name"])
+            if name in items:
                 if opponent.health <= 0:
                     opponent.health = 0
                     print(f"{opponent.name} is DEAD.")
                 elif opponent.health > 0:
-                    print(f"Attack successful, {opponent.name} lost {self.inventory["atk"]} health.")
+                    print(f"Attack successful, {opponent.name} lost {items[name]["atk"]} health.")
     def shop(self):
         ask=input(f"What would you like to buy{items}")
         for i in range(len(items)):
