@@ -38,7 +38,7 @@ items = [
 ]
 
 class Player:
-    def __init__(self, name, health, strength, defense, hunger, inventory, balance):
+    def __init__(self, name, health, strength, defense, hunger, inventory, balance, armorquip):
         self.name = name
         self.health = health
         self.strength = strength
@@ -46,6 +46,7 @@ class Player:
         self.hunger = hunger
         self.inventory = inventory
         self.balance = balance
+        self.armorquip=armorquip
     def checkStats(self):
         print(f"Name: {self.name}")
         print(f"Health: {self.health}")
@@ -81,15 +82,23 @@ class Player:
                 elif Result<0:
                     print("insufficient funds!")
     def armorequip(self):
-        for i in self.inventory:
-            print(self.inventory[i]["armor"])
-        else:
-            print("You have no armor!")
+        if self.armorquip==0:
+            for i in self.inventory:
+                armorr=input(self.inventory[i]["type"]["armor"]["name"])
+                if armorr==self.inventory[i]["type"]["armor"]["name"]:
+                    print("Armor successfully equipped!")
+                    ovl=self.hp+self.inventory[i]["type"]["armor"]["hp"]
+                    self.hp=ovl
+                    self.armorquip=self.inventory[i]["type"]["armor"]["hp"]
+            else:
+                print("You have no armor!")
+        elif self.armorquip==1:
+            input("You have ")
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
-player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5)
+player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5, 0)
 
 player.checkStats()
-john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5)
+john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5, 0)
 player.fight(john, ['glock'])

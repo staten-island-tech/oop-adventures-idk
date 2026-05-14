@@ -40,7 +40,7 @@ items = [
         "id": 8, 
         "name": "Impenetrable Armor",
         "def": 1,
-        "type": "armor"
+        "type": "armor",
     },
     {
         "id": 9, 
@@ -49,6 +49,5 @@ items = [
         "type": "weapon",
     },
 ]
-z=items[random.randint(0,7)]["name"]
-for i in range(5):
-    print(z)
+for i in items:
+    armorquip=[i]["type"]["armor"]["hp"]["name"]
