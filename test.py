@@ -24,7 +24,7 @@ items = [
     {
         "id": 4, 
         "name": "Duck",
-        "def": 10,
+        "hp": 10,
         "type": "armor",
         "cost": 10,
 
@@ -46,7 +46,7 @@ items = [
     {
         "id": 7, 
         "name": "Impenetrable Armor",
-        "def": 1,
+        "hp": 1,
         "type": "armor",
         "cost": 100,
     },
@@ -60,7 +60,7 @@ items = [
 ]
 
 class Player:
-    def __init__(self, name, health, strength, defense, hunger, inventory, balance):
+    def __init__(self, name, health, strength, defense, hunger, inventory, balance, armorquip):
         self.name = name
         self.health = health
         self.strength = strength
@@ -68,21 +68,65 @@ class Player:
         self.hunger = hunger
         self.inventory = inventory
         self.balance = balance
-    def fight(self):
+        self.armorquip=armorquip
+    def checkStats(self):
+        print(f"Name: {self.name}")
+        print(f"Health: {self.health}")
+        print(f"Strength: {self.strength}")
+        print(f"Defense: {self.defense}")
+        print(f"Hunger: {self.hunger}")
+        print(f"Inventory: {self.inventory}")
+    def fight(self, opponent,item):
         type=input("Would you like to use a weapon? [yes/no]\n- ").lower()
         if type=="yes":
             print("Weapons:")
             for i in self.inventory:
                 print(f"{i.index(i)+1}. {i}")
         #opponent.health-=x
-        for self.inventory in items:
+        for name in items:
             if self.inventory == items[i]["name"]:
                 if opponent.health <= 0:
                     opponent.health = 0
                     print(f"{opponent.name} is DEAD.")
                 elif opponent.health > 0:
                     print(f"Attack successful, {opponent.name} lost {self.inventory["atk"]} health.")
+    def shop(self):
+        ask=input(f"What would you like to buy{items}")
+        for i in range(len(items)):
+            if ask==items[i]["name"]:
+                Result=self.balance-items[i]["cost"]
+                if Result>0:
+                    self.balance=Result
+                    self.inventory.append(items[i])
+                    print(self.inventory)
+                    print(f"You have {self.balance} coins left!")
+                elif Result<0:
+                    print("insufficient funds!")
+    def armorequip(self):
+        if self.armorquip==0:
+            for i in self.inventory:
+                armorr=input(self.inventory[i]["type"]["armor"]["name"])
+                if armorr==self.inventory[i]["type"]["armor"]["name"]:
+                    print("Armor successfully equipped!")
+                    ovl=self.hp+self.inventory[i]["type"]["armor"]["hp"]
+                    self.hp=ovl
+            else:
+                print("You have no armor!")
+        elif self.armorquip==1:            
+            askarmor=input("You already have armor equipped! would you like to replace it?")
+            if askarmor=="yes":
+                self.hp=100
+                for i in self.inventory:
+                    armorr=input(self.inventory[i]["type"]["armor"]["name"])
+                    if armorr==self.inventory[i]["type"]["armor"]["name"]:
+                        print("Armor successfully equipped!")
+                        ovl=self.hp+self.inventory[i]["type"]["armor"]["hp"]
+                        self.hp=ovl
+
+
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
-player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 100)
-john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5)
-player.fight()
+#               name,  health, strength,               defense                 hunger          inventory balance
+player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5, 0) 
+player.checkStats()
+john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5, 0)
+player.armorequip()
