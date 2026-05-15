@@ -32,7 +32,7 @@ items = [
     {
         "id": 5, 
         "name": "Car",
-        "def": 20,
+        "hp": 20,
         "type": "armor",
         "cost": 15,
     },
