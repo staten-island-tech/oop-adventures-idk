@@ -60,13 +60,14 @@ class Player:
             print("Weapons:")
             for i in self.inventory:
                 print(f"{i.index(i)+1}. {i}")
-        #opponent.health-=x
-        for name in range(len(items)):
-            if opponent.health <= 0:
-                opponent.health = 0
-                print(f"{opponent.name} is DEAD.")
-            elif opponent.health > 0:
-                print(f"Attack successful, {opponent.name} lost {items[name]["atk"]} health.")
+        for name in items:
+            for i in range(len(self.inventory)):
+                if name["name"] == self.inventory[i]:
+                    if opponent.health <= 0:
+                        opponent.health = 0
+                        print(f"{opponent.name} is DEAD.")
+                    elif opponent.health > 0:
+                        print(f"Attack successful, {opponent.name} lost {name["atk"]} health.")
     def shop(self):
         ask=input(f"What would you like to buy{items}")
         for i in range(len(items)):
