@@ -81,30 +81,39 @@ class Player:
                 elif Result<0:
                     print("insufficient funds!")
     def armorequip(self):
-        while self.armorquip==0:
+        h=0
+        while self.armorquip==0 and h==0:
             for i in self.inventory:
+                print(self.inventory["armor"])
                 if i=="Car":
                     Car=input("Would you like to equip 'car'?").lower()
                     if Car=="yes":
                         self.hp=120
                         self.armorquip=1
-                elif i=="Impenetrable Armor":
-                    Impenarmor=input("Would you like to equip 'Impenetrable Armor'").lower()
-                    if Impenarmor=="yes":
-                        self.hp=101
-                        self.armorquip=1
+                        print(f"You have {self.hp} health now!")
                 elif i=="Duck":
                     Duck=input("Would you like to equip 'Duck'").lower()
                     if Duck=="yes":
                         self.hp=110
                         self.armorquip=1
-                else:
-                    print("Get some armor pig")
+                        print(f"You have {self.hp} health now!")
+                elif i=="Impenetrable Armor":
+                    Impenarmor=input("Would you like to equip 'Impenetrable Armor'").lower()
+                    if Impenarmor=="yes":
+                        self.hp=101
+                        self.armorquip=1
+                        print(f"You have {self.hp} health now!")
+                else: 
+                    print("You don't have any armor pig")
+                    h=1
+
+                    
                         
 
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
-player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5000, 0) 
+player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock', 'Duck', 'Car'], 5000, 0) 
 john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5, 0)
+
 player.armorequip()
