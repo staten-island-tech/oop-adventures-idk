@@ -84,13 +84,13 @@ class Player:
         h=0
         while self.armorquip==0 and h==0:
             for i in self.inventory:
-                print(self.inventory["armor"])
                 if i=="Car":
-                    Car=input("Would you like to equip 'car'?").lower()
+                    Car=input("Would you like to equip 'Car'?").lower()
                     if Car=="yes":
                         self.hp=120
                         self.armorquip=1
                         print(f"You have {self.hp} health now!")
+                        cc=1
                 elif i=="Duck":
                     Duck=input("Would you like to equip 'Duck'").lower()
                     if Duck=="yes":
@@ -103,9 +103,6 @@ class Player:
                         self.hp=101
                         self.armorquip=1
                         print(f"You have {self.hp} health now!")
-                else: 
-                    print("You don't have any armor pig")
-                    h=1
 
                     
                         
