@@ -1,22 +1,119 @@
 import random
+items = [
+    {
+        "id": 1,
+        "name": "Twig",
+        "atk": 5,  
+        "type": "weapon",
+        "cost": 6,
+    },
+    {
+        "id": 2,
+        "name": "Glock",
+        "atk": 75,
+        "type": "weapon",
+        "cost": 10,
+    },
+    {
+        "id": 3,
+        "name": "Textbook Troika",
+        "atk": 20,
+        "type": "weapon",
+        "cost": 20,
+    },
+    {
+        "id": 4, 
+        "name": "Excalibur",
+        "atk": 1,
+        "type": "weapon",
+        "cost": 100,
+    },
+    {
+        "id": 5, 
+        "name": "Pebble",
+        "atk": 25,
+        "type": "weapon",
+        "cost": 20,
+    },
+]
 
 class Player:
-    def __init__(self, name, health, strength, defense, hunger, inventory):
+    def __init__(self, name, health, strength, defense, hunger, inventory, balance, armorquip):
         self.name = name
         self.health = health
         self.strength = strength
         self.defense = defense
         self.hunger = hunger
         self.inventory = inventory
+        self.balance = balance
+        self.armorquip=armorquip
     def checkStats(self):
+        print(" -- PLAYER STATS -- ")
         print(f"Name: {self.name}")
         print(f"Health: {self.health}")
         print(f"Strength: {self.strength}")
         print(f"Defense: {self.defense}")
         print(f"Hunger: {self.hunger}")
         print(f"Inventory: {self.inventory}")
+    def fight(self, opponent):
+        type=input("Would you like to use a weapon? [yes/no]\n- ").lower()
+        if type=="yes":
+            print("Weapons:")
+            for i in self.inventory:
+                print(f"{i.index(i)+1}. {i}")
+        for name in items:
+            for i in range(len(self.inventory)):
+                if name["name"] == self.inventory[i]:
+                    opponent.health = opponent.health - name['atk']
+                    if opponent.health <= 0:
+                        opponent.health = 0
+                        print(f"{opponent.name} is DEAD.")
+                    elif opponent.health > 0:
+                        print(f"- Attack successful, {opponent.name} lost {name["atk"]} health.")
+                        print(f"{self.name}'s HP: {self.health}")
+                        print(f"{opponent.name}'s HP: {opponent.health}")
+    def shop(self):
+        ask=input(f"What would you like to buy{items}")
+        for i in range(len(items)):
+            if ask==items[i]["name"]:
+                Result=self.balance-items[i]["cost"]
+                if Result>0:
+                    self.balance=Result
+                    self.inventory.append(items[i])
+                    print(self.inventory)
+                    print(f"You have {self.balance} coins left!")
+                elif Result<0:
+                    print("insufficient funds!")
+    def armorequip(self):
+        if self.armorquip==0:
+            for i in self.inventory:
+                armorr=input(self.inventory[i]["type"]["armor"]["name"])
+                if armorr==self.inventory[i]["type"]["armor"]["name"]:
+                    print("Armor successfully equipped!")
+                    ovl=self.hp+self.inventory[i]["type"]["armor"]["hp"]
+                    self.hp=ovl
+                    self.armorquip=self.inventory[i]["type"]["armor"]["hp"]
+            else:
+                print("You have no armor!")
+        elif self.armorquip==1:
+            input("You have ")
+
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
+#               name,  health, strength,               defense                 hunger          inventory balance
+player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5, 0)
 
-player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(1, 10), ['empty'] )
+run = True
+while run:        
+    john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5, 0)
+    print(" - What would you like to do?:")
+    print("[1] - Check Stats")
+    print("[2] - Fight")
+    print("[3] - Quit")
+    option = input("- ")
+    if option.lower() == "check stats" or int(option) == 1:
+        player.checkStats()
 
-player.checkStats()
+    elif option.lower() == "fight" or int(option) == 2:    
+        player.fight(john)
+    elif option.lower() == "quit" or int(option) == 3:
+        run = False
