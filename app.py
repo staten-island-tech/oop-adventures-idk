@@ -57,11 +57,10 @@ class Player:
         print(f"Inventory: {self.inventory}")
         print(f"Balance: {self.balance}")
     def fight(self, opponent):
-        type=input("Would you like to use a weapon? [yes/no]\n- ").lower()
-        if type=="yes":
-            print("Weapons:")
-            for i in self.inventory:
-                print(f"{i.index(i)+1}. {i}")
+        print("What weapon would you like to use?:")
+        for i in self.inventory:
+            print(f"{i.index(i)+1}. {i}")
+        typee=input("- ").lower()
         for name in items:
             for i in range(len(self.inventory)):
                 if name["name"] == self.inventory[i]:
@@ -123,7 +122,7 @@ class Player:
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
-player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5, 0)
+player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock', 'Twig'], 5, 0)
 
 run = True
 while run:        
