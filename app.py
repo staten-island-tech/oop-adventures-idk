@@ -55,6 +55,7 @@ class Player:
         print(f"Defense: {self.defense}")
         print(f"Hunger: {self.hunger}")
         print(f"Inventory: {self.inventory}")
+        print(f"Balance: {self.balance}")
     def fight(self, opponent):
         type=input("Would you like to use a weapon? [yes/no]\n- ").lower()
         if type=="yes":
@@ -85,18 +86,40 @@ class Player:
                 elif Result<0:
                     print("insufficient funds!")
     def armorequip(self):
-        if self.armorquip==0:
+        h=0
+        while self.armorquip==0 and h==0:
             for i in self.inventory:
-                armorr=input(self.inventory[i]["type"]["armor"]["name"])
-                if armorr==self.inventory[i]["type"]["armor"]["name"]:
-                    print("Armor successfully equipped!")
-                    ovl=self.hp+self.inventory[i]["type"]["armor"]["hp"]
-                    self.hp=ovl
-                    self.armorquip=self.inventory[i]["type"]["armor"]["hp"]
-            else:
-                print("You have no armor!")
-        elif self.armorquip==1:
-            input("You have ")
+                if i=="Car":
+                    Car=input("Would you like to equip 'Car'?").lower()
+                    if Car=="yes":
+                        self.hp=120
+                        self.armorquip=1
+                        print(f"You have {self.hp} health now!")
+                        cc=1
+                elif i=="Duck":
+                    Duck=input("Would you like to equip 'Duck'").lower()
+                    if Duck=="yes":
+                        self.hp=110
+                        self.armorquip=1
+                        print(f"You have {self.hp} health now!")
+                elif i=="Impenetrable Armor":
+                    Impenarmor=input("Would you like to equip 'Impenetrable Armor'").lower()
+                    if Impenarmor=="yes":
+                        self.hp=101
+                        self.armorquip=1
+                        print(f"You have {self.hp} health now!")
+                    
+    def work(self):
+        jon=self.balance+random.randint(1,10)
+        self.balance=jon
+        if jon%10==0:
+            print("You hijack a plane by accident and got paid by the local terrorist organization")
+        elif jon%9==0:
+            print("You pretend to be injured after a car nearly hit you and take the driver the court.")
+        elif jon%8==0:
+            print("You accidentally join a cult and reported them to the police, who give you an reward")
+        elif jon%7==0:
+            print("You robbed a single mother with a family of 6")
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
@@ -109,11 +132,20 @@ while run:
     print("[1] - Check Stats")
     print("[2] - Fight")
     print("[3] - Quit")
+    print("[4] - Shop")
+    print("[5] - Armory")
+    print("[6] - Work")
     option = input("- ")
     if option.lower() == "check stats" or int(option) == 1:
         player.checkStats()
 
     elif option.lower() == "fight" or int(option) == 2:    
         player.fight(john)
+    elif option.lower() == "shop" or int(option) == 4:
+        player.shop()
+    elif option.lower() == "armory" or int(option) == 5:
+        player.armorequip()
+    elif option.lower() == "work" or int(option) == 6:
+        player.work()
     elif option.lower() == "quit" or int(option) == 3:
         run = False
