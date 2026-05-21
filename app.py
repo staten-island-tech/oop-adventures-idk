@@ -10,7 +10,7 @@ items = [
     {
         "id": 2,
         "name": "Glock",
-        "atk": 75,
+        "atk": 10,
         "type": "weapon",
         "cost": 10,
     },
@@ -23,13 +23,35 @@ items = [
     },
     {
         "id": 4, 
+        "name": "Duck",
+        "hp": 10,
+        "type": "armor",
+        "cost": 10,
+
+    },
+    {
+        "id": 5, 
+        "name": "Car",
+        "hp": 20,
+        "type": "armor",
+        "cost": 15,
+    },
+    {
+        "id": 6, 
         "name": "Excalibur",
         "atk": 1,
         "type": "weapon",
         "cost": 100,
     },
     {
-        "id": 5, 
+        "id": 7, 
+        "name": "Impenetrable Armor",
+        "hp": 1,
+        "type": "armor",
+        "cost": 100,
+    },
+    {
+        "id": 8, 
         "name": "Pebble",
         "atk": 25,
         "type": "weapon",
@@ -79,11 +101,12 @@ class Player:
                 Result=self.balance-items[i]["cost"]
                 if Result>0:
                     self.balance=Result
-                    self.inventory.append(items[i])
+                    self.inventory.append(items[i]["name"])
                     print(self.inventory)
-                    print(f"You have {self.balance} coins left!")
+                    print(f"You have successfully bought the item! You have {self.balance} coins left!")
                 elif Result<0:
                     print("insufficient funds!")
+                
     def armorequip(self):
         h=0
         while self.armorquip==0 and h==0:
@@ -91,22 +114,26 @@ class Player:
                 if i=="Car":
                     Car=input("Would you like to equip 'Car'?").lower()
                     if Car=="yes":
-                        self.hp=120
-                        self.armorquip=1
-                        print(f"You have {self.hp} health now!")
-                        cc=1
+                        self.health=120
+                        h=1
+                        print(f"You have {self.health} health now!")
                 elif i=="Duck":
                     Duck=input("Would you like to equip 'Duck'").lower()
                     if Duck=="yes":
-                        self.hp=110
-                        self.armorquip=1
-                        print(f"You have {self.hp} health now!")
+                        self.health=110
+                        h=1
+                        print(f"You have {self.health} health now!")
                 elif i=="Impenetrable Armor":
                     Impenarmor=input("Would you like to equip 'Impenetrable Armor'").lower()
                     if Impenarmor=="yes":
-                        self.hp=101
-                        self.armorquip=1
-                        print(f"You have {self.hp} health now!")
+                        self.health=101
+                        h=1
+                        print(f"You have {self.health} health now!")
+                    else:
+                        h=1
+
+                
+
                     
     def work(self):
         jon=self.balance+random.randint(1,10)
@@ -119,6 +146,9 @@ class Player:
             print("You accidentally join a cult and reported them to the police, who give you an reward")
         elif jon%7==0:
             print("You robbed a single mother with a family of 6")
+        elif jon%6==0:
+            print("You successfully evade taxes!")
+
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
