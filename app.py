@@ -57,8 +57,8 @@ class Player:
         print(f"Inventory: {self.inventory}")
     def fight(self, opponent):
         print("What weapon would you like to use?:")
-        for i in self.inventory:
-            print(f"{i.index(i)+1}. {i}")
+        for i, name in enumerate(self.inventory):
+            print(f"{i+1}. {name}")
         typee=input("- ").lower()
         for name in items:
             for i in range(len(self.inventory)):
