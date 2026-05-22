@@ -147,7 +147,18 @@ class Player:
         elif jon%7==0:
             print("You robbed a single mother with a family of 6")
         elif jon%6==0:
-            print("You successfully evade taxes!")
+            print("You fake your death and collect your insurance money!")
+        elif jon%5==0:
+            print("You have a 25 hour shift working at the local McDonalds")
+        elif jon%4==0:
+            print("You open open up a can of beans and you find money inside")
+        elif jon%3==0:
+            print("You fake being a cancer survivor for pity money")
+        elif jon%2==0:
+            print("You hijack someones device and transfer their money into your bank account")
+        elif jon%1==0:
+            print("You work very very very very very very very very very very very very hardddddddddddddddddddd")
+        
 
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
@@ -178,3 +189,4 @@ while run:
         player.work()
     elif option.lower() == "quit" or int(option) == 3:
         run = False
+    
