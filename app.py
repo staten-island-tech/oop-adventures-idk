@@ -105,8 +105,7 @@ class Player:
                     print(self.inventory)
                     print(f"You have successfully bought the item! You have {self.balance} coins left!")
                 elif Result<0:
-                    print("insufficient funds!")
-                
+                    print("insufficient funds!")            
     def armorequip(self):
         h=0
         while self.armorquip==0 and h==0:
@@ -130,11 +129,7 @@ class Player:
                         h=1
                         print(f"You have {self.health} health now!")
                     else:
-                        h=1
-
-                
-
-                    
+                        h=1                
     def work(self):
         jon=self.balance+random.randint(1,10)
         self.balance=jon
