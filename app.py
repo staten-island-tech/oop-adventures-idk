@@ -41,7 +41,7 @@ items = [
         "name": "Excalibur",
         "atk": 1,
         "type": "weapon",
-        "cost": 100,
+        "cost": 1000,
     },
     {
         "id": 7, 
