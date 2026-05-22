@@ -85,7 +85,7 @@ class Player:
         typee=input("- ").lower()
         for name in items:
             for i in range(len(self.inventory)):
-                if name["name"] == self.inventory[i]:
+                if name["name"] == self.inventory[i] and self.inventory[i] == typee.capitalize():
                     opponent.health = opponent.health - name['atk']
                     if opponent.health <= 0:
                         opponent.health = 0
