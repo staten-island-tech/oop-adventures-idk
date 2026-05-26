@@ -107,29 +107,30 @@ class Player:
                 elif Result<0:
                     print("insufficient funds!")            
     def armorequip(self):
-        h=0
-        while self.armorquip==0 and h==0:
+        while self.armorquip==0:
             for i in self.inventory:
                 if i=="Car":
                     Car=input("Would you like to equip 'Car'?").lower()
                     if Car=="yes":
                         self.health=120
-                        h=1
                         print(f"You have {self.health} health now!")
+                        break
                 elif i=="Duck":
                     Duck=input("Would you like to equip 'Duck'").lower()
                     if Duck=="yes":
                         self.health=110
-                        h=1
                         print(f"You have {self.health} health now!")
+                        break
                 elif i=="Impenetrable Armor":
                     Impenarmor=input("Would you like to equip 'Impenetrable Armor'").lower()
                     if Impenarmor=="yes":
                         self.health=101
-                        h=1
                         print(f"You have {self.health} health now!")
-                    else:
-                        h=1                
+                        break
+                elif i!="Car" and i!="Duck" and i!="Impenetrable Armor": 
+                    break
+                    print("You don't have any armor")        
+                
     def work(self):
         jon=self.balance+random.randint(1,10)
         self.balance=jon
@@ -173,7 +174,6 @@ while run:
     option = input("- ")
     if option.lower() == "check stats" or int(option) == 1:
         player.checkStats()
-
     elif option.lower() == "fight" or int(option) == 2:    
         player.fight(john)
     elif option.lower() == "shop" or int(option) == 4:
