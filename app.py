@@ -41,7 +41,7 @@ items = [
         "name": "Excalibur",
         "atk": 1,
         "type": "weapon",
-        "cost": 100,
+        "cost": 1000,
     },
     {
         "id": 7, 
@@ -137,8 +137,6 @@ class Player:
             break
 
                 
-
-                    
     def work(self):
         jon=self.balance+random.randint(1,10)
         self.balance=jon
@@ -182,7 +180,6 @@ while run:
     option = input("- ")
     if option.lower() == "check stats" or int(option) == 1:
         player.checkStats()
-
     elif option.lower() == "fight" or int(option) == 2:    
         player.fight(john)
     elif option.lower() == "shop" or int(option) == 4:
