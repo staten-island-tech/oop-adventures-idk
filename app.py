@@ -95,7 +95,10 @@ class Player:
                         print(f"{self.name}'s HP: {self.health}")
                         print(f"{opponent.name}'s HP: {opponent.health}")
     def shop(self):
-        ask=input(f"What would you like to buy{items}")
+        print(f"What would you like to buy?\nMenu: ")
+        for i in range(len(items)):
+            print(f" *{items[i]["name"]}")
+        ask = input("- ")
         for i in range(len(items)):
             if ask==items[i]["name"]:
                 Result=self.balance-items[i]["cost"]
@@ -105,32 +108,33 @@ class Player:
                     print(self.inventory)
                     print(f"You have successfully bought the item! You have {self.balance} coins left!")
                 elif Result<0:
-                    print("insufficient funds!")
+                    print("Insufficient funds!")
                 
     def armorequip(self):
-        h=0
-        while self.armorquip==0 and h==0:
+        while 1:
             for i in self.inventory:
                 if i=="Car":
                     Car=input("Would you like to equip 'Car'?").lower()
                     if Car=="yes":
                         self.health=120
-                        h=1
                         print(f"You have {self.health} health now!")
+                        break
                 elif i=="Duck":
                     Duck=input("Would you like to equip 'Duck'").lower()
                     if Duck=="yes":
                         self.health=110
-                        h=1
                         print(f"You have {self.health} health now!")
+                        break
                 elif i=="Impenetrable Armor":
                     Impenarmor=input("Would you like to equip 'Impenetrable Armor'").lower()
                     if Impenarmor=="yes":
                         self.health=101
-                        h=1
                         print(f"You have {self.health} health now!")
-                    else:
-                        h=1
+                        break
+                elif "Impenetrable Armor" not in self.inventory and "Car" not in self.inventory and "Duck" not in self.inventory:
+                    print("not in")
+                    break
+            break
 
                 
 
