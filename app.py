@@ -94,7 +94,11 @@ class Player:
                         print(f"{self.name}'s HP: {self.health}")
                         print(f"{opponent.name}'s HP: {opponent.health}")
     def shop(self):
-        ask=input(f"What would you like to buy{items}")
+        print(f"What would you like to buy?\nMenu: ")
+        print(f"You have {self.balance} coins!")
+        for i in range(len(items)):
+            print(f" *{items[i]["name"]}")
+        ask = input("- ")
         for i in range(len(items)):
             if ask==items[i]["name"]:
                 Result=self.balance-items[i]["cost"]
@@ -104,10 +108,17 @@ class Player:
                     print(self.inventory)
                     print(f"You have successfully bought the item! You have {self.balance} coins left!")
                 elif Result<0:
-                    print("insufficient funds!")            
+                    print("Insufficient funds!")
+                
     def armorequip(self):
-        while:
-            for i in self.inventory:
+        while 1:
+            for i in range(len(self.inventory)):
+                if self.inventory[i]["type"]=="armor":
+                    input(items[i]["name"])
+                    
+
+
+            """ for i in self.inventory:
                 if i=="Car":
                     Car=input("Would you like to equip 'Car'?").lower()
                     if Car=="yes":
@@ -126,9 +137,11 @@ class Player:
                         self.health=101
                         print(f"You have {self.health} health now!")
                         break
-                elif i!="Car" and i!="Duck" and i!="Impenetrable Armor": 
+                elif "Impenetrable Armor" not in self.inventory and "Car" not in self.inventory and "Duck" not in self.inventory:
+                    print("not in")
                     break
-                    print("You don't have any armor")        
+            break
+ """
                 
     def work(self):
         jon=self.balance+random.randint(1,10)
