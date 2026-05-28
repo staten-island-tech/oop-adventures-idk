@@ -60,7 +60,7 @@ items = [
 ]
 
 class Player:
-    def __init__(self, name, health, strength, defense, hunger, inventory, balance, armorquip):
+    def __init__(self, name, health, strength, defense, hunger, inventory, balance):
         self.name = name
         self.health = health
         self.strength = strength
@@ -68,7 +68,6 @@ class Player:
         self.hunger = hunger
         self.inventory = inventory
         self.balance = balance
-        self.armorquip=armorquip
     def checkStats(self):
         print(" -- PLAYER STATS -- ")
         print(f"Name: {self.name}")
@@ -107,7 +106,7 @@ class Player:
                 elif Result<0:
                     print("insufficient funds!")            
     def armorequip(self):
-        while self.armorquip==0:
+        while:
             for i in self.inventory:
                 if i=="Car":
                     Car=input("Would you like to equip 'Car'?").lower()
@@ -159,11 +158,11 @@ class Player:
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
-player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock', 'Twig'], 5, 0)
+player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock', 'Twig'], 5)
 
 run = True
 while run:        
-    john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5, 0)
+    john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5)
     print(" - What would you like to do?:")
     print("[1] - Check Stats")
     print("[2] - Fight")
