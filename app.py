@@ -1,63 +1,8 @@
-import random
-items = [
-    {
-        "id": 1,
-        "name": "Twig",
-        "atk": 5,  
-        "type": "weapon",
-        "cost": 6,
-    },
-    {
-        "id": 2,
-        "name": "Glock",
-        "atk": 10,
-        "type": "weapon",
-        "cost": 10,
-    },
-    {
-        "id": 3,
-        "name": "Textbook Troika",
-        "atk": 20,
-        "type": "weapon",
-        "cost": 20,
-    },
-    {
-        "id": 4, 
-        "name": "Duck",
-        "hp": 10,
-        "type": "armor",
-        "cost": 10,
-
-    },
-    {
-        "id": 5, 
-        "name": "Car",
-        "hp": 20,
-        "type": "armor",
-        "cost": 15,
-    },
-    {
-        "id": 6, 
-        "name": "Excalibur",
-        "atk": 1,
-        "type": "weapon",
-        "cost": 100,
-    },
-    {
-        "id": 7, 
-        "name": "Impenetrable Armor",
-        "hp": 1,
-        "type": "armor",
-        "cost": 100,
-    },
-    {
-        "id": 8, 
-        "name": "Pebble",
-        "atk": 25,
-        "type": "weapon",
-        "cost": 20,
-    },
-]
+import random, json
+with open('items.json', 'r', encoding='utf-8') as file:
+    items = json.load(file)
+with open('workstrings.json', 'r', encoding='utf-8') as file:
+    workstrings = json.load(file)
 
 class Player:
     def __init__(self, name, health, strength, defense, hunger, inventory, balance, armorquip):
@@ -132,7 +77,7 @@ class Player:
                         print(f"You have {self.health} health now!")
                         break
                 elif "Impenetrable Armor" not in self.inventory and "Car" not in self.inventory and "Duck" not in self.inventory:
-                    print("not in")
+                    print("You have no armor in your inventory!")
                     break
             break
 
@@ -140,28 +85,11 @@ class Player:
 
                     
     def work(self):
-        jon=self.balance+random.randint(1,10)
-        self.balance=jon
-        if jon%10==0:
-            print("You hijack a plane by accident and got paid by the local terrorist organization")
-        elif jon%9==0:
-            print("You pretend to be injured after a car nearly hit you and take the driver the court.")
-        elif jon%8==0:
-            print("You accidentally join a cult and reported them to the police, who give you an reward")
-        elif jon%7==0:
-            print("You robbed a single mother with a family of 6")
-        elif jon%6==0:
-            print("You fake your death and collect your insurance money!")
-        elif jon%5==0:
-            print("You have a 25 hour shift working at the local McDonalds")
-        elif jon%4==0:
-            print("You open open up a can of beans and you find money inside")
-        elif jon%3==0:
-            print("You fake being a cancer survivor for pity money")
-        elif jon%2==0:
-            print("You hijack someones device and transfer their money into your bank account")
-        elif jon%1==0:
-            print("You work very very very very very very very very very very very very hardddddddddddddddddddd")
+        payment=self.balance+random.randint(1,20)
+        self.balance=payment
+        stringsel = random.randint(1, 10)
+        print(workstrings[stringsel]['text'])
+        print(f"You now have {payment}")
         
 
 
