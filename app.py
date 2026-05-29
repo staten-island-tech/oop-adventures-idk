@@ -49,12 +49,11 @@ class Player:
                 Result=self.balance-items[i]["cost"]
                 if Result>0:
                     self.balance=Result
-                    self.inventory.append(items[i]["name"])
+                    self.inventory.append(items[i]['name'])
                     print(self.inventory)
                     print(f"You have successfully bought the item! You have {self.balance} coins left!")
                 elif Result<0:
                     print("Insufficient funds!")
-                
     def armorequip(self):
         while 1:
             for i in self.inventory:
@@ -79,15 +78,11 @@ class Player:
                 elif "Impenetrable Armor" not in self.inventory and "Car" not in self.inventory and "Duck" not in self.inventory:
                     print("You have no armor in your inventory!")
                     break
-            break
-
-                
-
-                    
+            break                
     def work(self):
         payment=self.balance+random.randint(1,20)
         self.balance=payment
-        stringsel = random.randint(1, 10)
+        stringsel = random.randint(0, 9)
         print(workstrings[stringsel]['text'])
         print(f"You now have {payment}")
         
