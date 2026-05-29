@@ -1,71 +1,8 @@
-<<<<<<< HEAD
 import random, json
 with open('items.json', 'r', encoding='utf-8') as file:
     items = json.load(file)
 with open('workstrings.json', 'r', encoding='utf-8') as file:
     workstrings = json.load(file)
-=======
-import random
-items = [
-    {
-        "id": 1,
-        "name": "Twig",
-        "atk": 5,  
-        "type": "weapon",
-        "cost": 6,
-    },
-    {
-        "id": 2,
-        "name": "Glock",
-        "atk": 10,
-        "type": "weapon",
-        "cost": 10,
-    },
-    {
-        "id": 3,
-        "name": "Textbook Troika",
-        "atk": 20,
-        "type": "weapon",
-        "cost": 20,
-    },
-    {
-        "id": 4, 
-        "name": "Duck",
-        "hp": 10,
-        "type": "armor",
-        "cost": 10,
-
-    },
-    {
-        "id": 5, 
-        "name": "Car",
-        "hp": 20,
-        "type": "armor",
-        "cost": 15,
-    },
-    {
-        "id": 6, 
-        "name": "Excalibur",
-        "atk": 1,
-        "type": "weapon",
-        "cost": 1000,
-    },
-    {
-        "id": 7, 
-        "name": "Impenetrable Armor",
-        "hp": 1,
-        "type": "armor",
-        "cost": 100,
-    },
-    {
-        "id": 8, 
-        "name": "Pebble",
-        "atk": 25,
-        "type": "weapon",
-        "cost": 20,
-    },
-]
->>>>>>> 9d80805d6d1155d41fa42377c5d8cdc89803f7c4
 
 class Player:
     def __init__(self, name, health, strength, defense, hunger, inventory, balance):
@@ -120,13 +57,7 @@ class Player:
                 
     def armorequip(self):
         while 1:
-            for i in range(len(self.inventory)):
-                if self.inventory[i]["type"]=="armor":
-                    input(items[i]["name"])
-                    
-
-
-            """ for i in self.inventory:
+            for i in self.inventory:
                 if i=="Car":
                     Car=input("Would you like to equip 'Car'?").lower()
                     if Car=="yes":
@@ -149,7 +80,7 @@ class Player:
                     print("You have no armor in your inventory!")
                     break
             break
- """
+
                 
 
                     
