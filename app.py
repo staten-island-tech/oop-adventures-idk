@@ -5,7 +5,7 @@ with open('workstrings.json', 'r', encoding='utf-8') as file:
     workstrings = json.load(file)
 
 class Player:
-    def __init__(self, name, health, strength, defense, hunger, inventory, balance, armorquip):
+    def __init__(self, name, health, strength, defense, hunger, inventory, balance):
         self.name = name
         self.health = health
         self.strength = strength
@@ -13,7 +13,6 @@ class Player:
         self.hunger = hunger
         self.inventory = inventory
         self.balance = balance
-        self.armorquip=armorquip
     def checkStats(self):
         print(" -- PLAYER STATS -- ")
         print(f"Name: {self.name}")
@@ -41,6 +40,7 @@ class Player:
                         print(f"{opponent.name}'s HP: {opponent.health}")
     def shop(self):
         print(f"What would you like to buy?\nMenu: ")
+        print(f"You have {self.balance} coins!")
         for i in range(len(items)):
             print(f" *{items[i]["name"]}")
         ask = input("- ")
@@ -56,7 +56,13 @@ class Player:
                     print("Insufficient funds!")
     def armorequip(self):
         while 1:
-            for i in self.inventory:
+            for i in range(len(self.inventory)):
+                if self.inventory[i]["type"]=="armor":
+                    input(items[i]["name"])
+                    
+
+
+            """ for i in self.inventory:
                 if i=="Car":
                     Car=input("Would you like to equip 'Car'?").lower()
                     if Car=="yes":
@@ -90,11 +96,11 @@ class Player:
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,               defense                 hunger          inventory balance
-player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock', 'Twig'], 5, 0)
+player = Player(pName, 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock', 'Twig'], 5)
 
 run = True
 while run:        
-    john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5, 0)
+    john = Player("john", 100, random.randint(1, 10), random.randint(1, 10), random.randint(5, 10), ['Glock'], 5)
     print(" - What would you like to do?:")
     print("[1] - Check Stats")
     print("[2] - Fight")
