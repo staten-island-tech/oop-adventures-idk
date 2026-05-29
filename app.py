@@ -90,6 +90,8 @@ class Player:
         stringsel = random.randint(1, 10)
         print(workstrings[stringsel]['text'])
         print(f"You now have {payment}")
+class Gambler:
+    def Roulette(self):
         
 
 
