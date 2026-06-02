@@ -16,7 +16,7 @@
     {
         "id": 3,
         "name": "Textbook Troika",
-        "atk": 20,
+        "atk": 20,  
         "type": "weapon",
         "cost": 20
     },
@@ -55,5 +55,10 @@
         "atk": 25,
         "type": "weapon",
         "cost": 20
+    },
+    {
+        "id": 9,
+        "name": "Hunting Knife",
+        "cost": 15
     }
 ]
