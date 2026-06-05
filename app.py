@@ -25,17 +25,22 @@ class Player:
         for i, name in enumerate(self.inventory):
             print(f"{i+1}. {name}")
         typee=input("- ").lower()
-        for name in items:
-            for i in range(len(self.inventory)):
-                if name["name"] == self.inventory[i] and self.inventory[i] == typee.capitalize():
-                    opponent.health = opponent.health - name['atk']
-                    if opponent.health <= 0:
-                        opponent.health = 0
-                        print(f"{opponent.name} is DEAD.")
-                    elif opponent.health > 0:
-                        print(f"- Attack successful, {opponent.name} lost {name["atk"]} health.")
-                        print(f"{self.name}'s HP: {self.health}")
-                        print(f"{opponent.name}'s HP: {opponent.health}")
+        while opponent.health>0 and self.health>0:
+            for name in items:
+                for i in range(len(self.inventory)):
+                    if name["name"] == self.inventory[i] and self.inventory[i] == typee.capitalize():
+                        opponent.health = opponent.health - name['atk']
+                        if opponent.health <= 0:
+                            opponent.health = 0
+                            print(f"{opponent.name} is DEAD.")
+                        elif self.health <= 0:
+                            self.health = 0
+                            print(f"{opponent.name} is DEAD.")
+                        elif opponent.health > 0:
+                            print(f"- Attack successful, {opponent.name} lost {name["atk"]} health.")
+                            print(f"{self.name}'s HP: {self.health}")
+                            print(f"{opponent.name}'s HP: {opponent.health}")
+                            fightr=input("Would you like to attack again?")
     def shop(self):
         print(f"What would you like to buy?\nMenu: ")
         print(f"You have {self.balance} coins!")
@@ -82,55 +87,73 @@ class Player:
         if "Hunting Knife" not in self.inventory:
             print("Go get a hunting knife!")
         else: 
+                n=1
                 huntingchance=random.randint(1,4)
                 if huntingchance==1:
                     print("You encountered a rabbit!")
-                    while rabbit.health!=0 or self.health<=0:
-                        attack=input("Would you like to attack?").lower()
-                        if attack=="yes":
-                            rabbit.takedamage(5)
-                            self.takedamage(rabbit.damage)
-                        else: 
-                            print("ok")
-                    if rabbit.health==0:
-                        self.inventory.append(rabbit.drop)
-                    elif self.health<=0:
-                        print("Your character died, try again!")
-                        run=False
+                    n=1
+                    if n==1:
+                        while rabbit.health!=0 or self.health<=0:
+                            attack=input("Would you like to attack?").lower()
+                            if attack=="yes":
+                                rabbit.takedamage(5)
+                                self.takedamage(rabbit.damage)
+                            else: 
+                                print("ok")
+                                n=0
+                        if rabbit.health==0:
+                            print("You have successfully skewered the rabbit")
+                            self.inventory.append(rabbit.drop)
+                            rabbit.health=10
+                            n=0
+                        elif self.health<=0:
+                            print("Your character died, try again!")
+                            run=False
 
                 elif huntingchance==2:
                     print("You encountered a buffalo!")
-                    while buffalo.health!=0 or self.health<=0:
-                        attack=input("Would you like to attack?").lower()
-                        if attack=="yes":
-                            buffalo.takedamage(5)
-                            self.takedamage(buffalo.damage)
-                        else: 
-                            print("ok")
-                    if buffalo.health==0:
-                        self.inventory.append(buffalo.drop)
-                    elif self.health<=0:
-                        print("Your character died, try again!")
-                        run=False
+                    n = 1
+                    if n==1:
+                        while buffalo.health!=0 or self.health<=0:
+                            attack=input("Would you like to attack?").lower()
+                            if attack=="yes":
+                                buffalo.takedamage(5)
+                                self.takedamage(buffalo.damage)
+                            else: 
+                                print("ok")
+                                n=0
+                        if buffalo.health==0:
+                            print("it died.")
+                            self.inventory.append(buffalo.drop)
+                            buffalo.health=20
+                            n = 0
+                        elif self.health<=0:
+                            print("Your character died, try again!")
+                            run=False
                 elif huntingchance==3:
                     print("You enounter a frog!")
-                    while frog.health!=0 or self.health<=0:
-                        attack=input("Would you like to attack?").lower()
-                        if attack=="yes":
-                            frog.takedamage(5)
-                            self.takedamage(frog.damage)
-                        else: 
-                            print("ok")
-                    if frog.health==0:
-                        self.inventory.append(frog.drop)
-                    elif self.health<=0:
-                        print("Your character died, try again!")
-                        run=False
+                    if n==1:
+                        while frog.health!=0 or self.health<=0:
+                            attack=input("Would you like to attack?").lower()
+                            if attack=="yes":
+                                frog.takedamage(5)
+                                self.takedamage(frog.damage)
+                            else: 
+                                print("ok")
+                                n=0
+                        if frog.health==0:
+                            print("Congrats! You murdered the frog!")
+                            self.inventory.append(frog.drop)
+                            frog.health=15
+                            n=0
+                        elif self.health<=0:
+                            print("Your character died!")
+                            run=False
                 elif huntingchance==4:
                     print("You found nothing!")
     def takedamage(self, amount):
         self.health-=amount
-        print(f"Your player has {self.health} left")           
+        print(f"Your player has {self.health} health left")           
     def work(self):
         payment=self.balance+random.randint(1,20)
         self.balance=payment
@@ -145,7 +168,7 @@ class Animal:
         self.drop=drop
     def takedamage(self, amount):
         self.health-=amount
-        print(f"The animal has {self.health} left")
+        print(f"The animal has {self.health} health left")
             
 class NPC:
     def __init__(self, name, health, damage):
@@ -163,6 +186,8 @@ player = Player(pName, 100, random.randint(1, 10), random.randint(5, 10), ['Gloc
 run = True
 while run:        
     john = NPC("john", 100, 4)
+    Hut= NPC("Hut", 50, 2)
+    Rud= NPC("Rud", 10, 15)
     rabbit= Animal(10, 1, "rabbit")
     buffalo=Animal(20, 2, "beef")
     frog=Animal(15, 1, "raw meat")
@@ -177,9 +202,14 @@ while run:
     option = input("- ")
     if option.lower() == "check stats" or int(option) == 1:
         player.checkStats()
-
     elif int(option) == 2:    
-        player.fight(john)
+        fii=input("Who would you like to fight: John, Hut, or Rud").lower()
+        if fii=="john":
+            player.fight(john)
+        elif fii=="hut":
+            player.fight(Hut)
+        elif fii=="rud":
+            player.fight(Rud)
     elif int(option) == 4:
         player.shop()
     elif int(option) == 5:
