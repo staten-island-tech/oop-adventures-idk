@@ -45,7 +45,7 @@ class Player:
         print(f"What would you like to buy?\nMenu: ")
         print(f"You have {self.balance} coins!")
         for i in range(len(items)):
-            print(f" *{items[i]["name"]}")
+            print(f" *{items[i]["name"]} --- {items[i]["cost"]} coins")
         ask = input("- ")
         for i in range(len(items)):
             if ask==items[i]["name"]:
@@ -58,26 +58,23 @@ class Player:
                 elif Result<0:
                     print("Insufficient funds!")
     def armorequip(self):
-        while 1:
+        while True:
             for i in self.inventory:
                 if i=="Car":
                     Car=input("Would you like to equip 'Car'?").lower()
                     if Car=="yes":
                         self.health=120
                         print(f"You have {self.health} health now!")
-                        break
                 elif i=="Duck":
                     Duck=input("Would you like to equip 'Duck'").lower()
                     if Duck=="yes":
                         self.health=110
                         print(f"You have {self.health} health now!")
-                        break
                 elif i=="Impenetrable Armor":
                     Impenarmor=input("Would you like to equip 'Impenetrable Armor'").lower()
                     if Impenarmor=="yes":
                         self.health=101
                         print(f"You have {self.health} health now!")
-                        break
                 elif "Impenetrable Armor" not in self.inventory and "Car" not in self.inventory and "Duck" not in self.inventory:
                     print("You have no armor in your inventory!")
                     break
