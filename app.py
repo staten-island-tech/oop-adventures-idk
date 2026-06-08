@@ -21,7 +21,7 @@ class Player:
         print(f"Inventory: {self.inventory}")
         print(f"Balance: {self.balance}")
     def fight(self, opponent):
-        print("What weapon would you like to use?:")
+        print("What weapon would you like to use?(type weapon name):")
         for i, name in enumerate(self.inventory):
             print(f"{i+1}. {name}")
         typee=input("- ").lower()
@@ -30,17 +30,36 @@ class Player:
                 for i in range(len(self.inventory)):
                     if name["name"] == self.inventory[i] and self.inventory[i] == typee.capitalize():
                         opponent.health = opponent.health - name['atk']
+                        self.health -= opponent.damage
+                        hungerloss=random.randint(1, 5)
+                        self.hunger -= hungerloss   
                         if opponent.health <= 0:
                             opponent.health = 0
                             print(f"{opponent.name} is DEAD.")
+                            dropdecider=random.randint(1,4)
+                            itemdecider= random.randint(0,8)
+                            itemdecided=items[itemdecider]
+                            if dropdecider==1:
+                                print(f"You got a drop from defeating {opponent.name}")
+                                self.inventory.append(itemdecided)
+                            if fii=="rud":
+                                opponent.fixhealth(Rud)
+                            elif fii=="john":
+                                opponent.fixhealth(john)
+                            elif fii=="hut":
+                                opponent.fixhealth(Hut)
                         elif self.health <= 0:
                             self.health = 0
                             print(f"{opponent.name} is DEAD.")
                         elif opponent.health > 0:
                             print(f"- Attack successful, {opponent.name} lost {name["atk"]} health.")
+                            print(f"You took {opponent.damage} damage! You have {self.health} health left!")
                             print(f"{self.name}'s HP: {self.health}")
                             print(f"{opponent.name}'s HP: {opponent.health}")
-                            fightr=input("Would you like to attack again?")
+                            fightr=input("Would you like to attack again?").lower()
+                            if fightr=="no": 
+                                break
+                            
     def shop(self):
         print(f"What would you like to buy?\nMenu: ")
         print(f"You have {self.balance} coins!")
@@ -106,7 +125,7 @@ class Player:
                             rabbit.health=10
                             n=0
                         elif self.health<=0:
-                            print("Your character died, try again!")
+                            print("Your character died")
                             run=False
 
                 elif huntingchance==2:
@@ -127,7 +146,7 @@ class Player:
                             buffalo.health=20
                             n = 0
                         elif self.health<=0:
-                            print("Your character died, try again!")
+                            print("Your character died")
                             run=False
                 elif huntingchance==3:
                     print("You enounter a frog!")
@@ -174,6 +193,14 @@ class NPC:
         self.health=health
         self.name=name
         self.damage=damage
+    def fixhealth(self):
+        if self.name==Rud:
+            self.health=10
+        elif self.person==Hut:
+            self.health=50
+        elif self.person==john:
+            self.health=100
+#heree
 
 
         
@@ -181,7 +208,7 @@ class NPC:
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,                                hunger          inventory balance
-player = Player(pName, 100, random.randint(1, 10), random.randint(5, 10), ['Glock', 'Twig'], 5)
+player = Player(pName, 100, random.randint(1, 10), random.randint(50, 100), ['Glock', 'Twig'], 5)
 run = True
 while run:        
     john = NPC("john", 100, 4)
