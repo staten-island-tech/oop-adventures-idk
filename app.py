@@ -5,13 +5,14 @@ with open('workstrings.json', 'r', encoding='utf-8') as file:
     workstrings = json.load(file)
 
 class Player:
-    def __init__(self, name, health, strength, hunger, inventory, balance):
+    def __init__(self, name, health, strength, hunger, inventory, balance, rebirth):
         self.name = name
         self.health = health
         self.strength = strength
         self.hunger = hunger
         self.inventory = inventory
         self.balance = balance
+        self.rebirth= rebirth
     def checkStats(self):
         print(" -- PLAYER STATS -- ")
         print(f"Name: {self.name}")
@@ -20,6 +21,7 @@ class Player:
         print(f"Hunger: {self.hunger}")
         print(f"Inventory: {self.inventory}")
         print(f"Balance: {self.balance}")
+        print(f"Rebirths: {self.rebirth}")
     def fight(self, opponent):
         print("What weapon would you like to use?(type weapon name):")
         for i, name in enumerate(self.inventory):
@@ -86,66 +88,69 @@ class Player:
                     if Impenarmor=="yes":
                         self.health=101
                         print(f"You have {self.health} health now!")
-                elif "Impenetrable Armor" not in self.inventory and "Car" not in self.inventory and "Duck" not in self.inventory:
+                else:
                     print("You have no armor in your inventory!")
                     break
             break
     def hunt(self):
         if "Hunting Knife" not in self.inventory:
-            print("Go get a hunting knife!")
+            print("You enter a forest not knowing you didn't have a hunting knife! Go get a hunting knife!")
         else: 
                 huntingchance=random.randint(1,4)
                 if huntingchance==1:
                     print("You encountered a rabbit!")
-                    while rabbit.health!=0 or self.health<=0:
+                    while rabbit.health>=0 or self.health>=0:
                         attack=input("Would you like to attack?").lower()
-                        if attack=="yes":
-                            rabbit.takedamage(5)
+                        if attack!="no":
+                            rabbit.takedamage(5*self.strength)
                             self.takedamage(rabbit.damage)
                         else: 
                             print("ok")
                             break
-                        if rabbit.health==0:
-                            print("You have successfully skewered the rabbit")
-                            self.inventory.append(rabbit.drop)
-                            rabbit.health=10
+                        if rabbit.health<=0:
+                                print("You have successfully skewered the rabbit and got rabbeat!")
+                                self.inventory.append(rabbit.drop)
+                                rabbit.health=10
+                                break
                         elif self.health<=0:
                             print("Your character died")
-                            break
+                            
 
                 elif huntingchance==2:
                     print("You encountered a buffalo!")
-                    while buffalo.health!=0 or self.health<=0:
+                    while buffalo.health>=0 or self.health>=0:
                             attack=input("Would you like to attack?").lower()
-                            if attack=="yes":
-                                buffalo.takedamage(5)
+                            if attack!="no":
+                                buffalo.takedamage(5*self.strength)
                                 self.takedamage(buffalo.damage)
                             else: 
                                 print("ok")
                                 break
-                    if buffalo.health==0:
-                            print("it died.")
-                            self.inventory.append(buffalo.drop)
-                            buffalo.health=20
-                    elif self.health<=0:
-                            print("Your character died")
+                            if buffalo.health<=0:
+                                    print("it died. You got beef.")
+                                    self.inventory.append(buffalo.drop)
+                                    buffalo.health=20
+                                    break
+                            elif self.health<=0:
+                                print("Your character died")
                             
                 elif huntingchance==3:
                     print("You enounter a frog!")
-                    while frog.health!=0 or self.health<=0:
+                    while frog.health>=0 or self.health>=0:
                             attack=input("Would you like to attack?").lower()
-                            if attack=="yes":
-                                frog.takedamage(5)
+                            if attack!="no":
+                                frog.takedamage(5*self.strength)
                                 self.takedamage(frog.damage)
                             else: 
                                 print("ok")
                                 break
-                    if frog.health==0:
-                            print("Congrats! You murdered the frog!")
-                            self.inventory.append(frog.drop)
-                            frog.health=15
-                    elif self.health<=0:
-                            print("Your character died!")
+                            if frog.health<=0:
+                                    print("Congrats! You murdered the frog! Meat has been added to your inventory")
+                                    self.inventory.append(frog.drop)
+                                    frog.health=15
+                                    break
+                            elif self.health<=0:
+                                    print("Your character died!")
                 elif huntingchance==4:
                     print("You found nothing!")
     def takedamage(self, amount):
@@ -154,9 +159,10 @@ class Player:
     def work(self):
         payment=self.balance+random.randint(1,20)
         self.balance=payment
-        stringsel = random.randint(0, 9)
+        stringsel = random.randint(0, 5)*self.rebirth
         print(workstrings[stringsel]['text'])
         print(f"You now have a balance of {payment} ")
+        self.hunger=self.hunger-random.randint(8,10)
     def eat(self, food):
         while self.hunger<100:
             for i in self.inventory:
@@ -178,26 +184,48 @@ class Player:
     def losehunger(self):
         losehunger=random.randint(1,5)
         self.hunger=self.hunger-losehunger
-    def eat(self, food):
-        for i in self.inventory:
-            while self.hunger<100:
-                if food=="rabbeat":
+    def eat(self):
+        hungercap=self.rebirth*100
+        while self.hunger<hungercap:
+                if askfood not in self.inventory:
+                    print("You have no food!")
+                    return
+                if askfood=="rabbeat":
                     self.inventory.remove("rabbeat")
                     self.hunger=self.hunger+15
-                    print(f"You have {self.hunger} hunger now!")
+                    self.health=self.health+50
+                    if self.health>100*self.rebirth:
+                        self.health=100*self.rebirth
+                    print(f"You have {self.hunger} hunger now and {self.health} health now!")
                     break
-                if food=="beef":
+                elif askfood=="beef":
                     self.inventory.remove("beef")
                     self.hunger=self.hunger+30
-                    print(f"You have {self.hunger} hunger now!")
+                    self.health=self.health+100
+                    if self.health>100*self.rebirth:
+                        self.health=100*self.rebirth
+                    print(f"You have {self.hunger} hunger now and {self.health} health now!")
                     break
-                if food=="meat":
+                elif askfood=="meat":
                     self.inventory.remove("meat")
                     self.hunger=self.hunger+20
-                    print(f"You have {self.hunger} hunger now!")
+                    self.health=self.health+75
+                    if self.health>100*self.rebirth:
+                        self.health=100*self.rebirth
+                    print(f"You have {self.hunger} hunger now and {self.health} health now!")
                     break
-            else:
                 print("You don't have any food")
+    def reborn(self):
+        rebirthamount=1.5*200*self.rebirth
+        askrebirth=input(f"Would you like the rebirth for {rebirthamount} coins? You will gain more strength, health, and money gain.").lower()
+        if askrebirth=="yes":
+            if self.balance-rebirthamount>=0:
+                self.rebirth=self.rebirth+1
+                self.balance=self.balance-rebirthamount
+                self.health=self.health*self.rebirth
+                self.strength=self.strength*self.rebirth
+            elif self.balance-rebirthamount<0:
+                print("You need more coins in your balance!")
  
 class Animal:
     def __init__(self, health, damage, drop):
@@ -228,7 +256,7 @@ class NPC:
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,                                hunger          inventory balance
-player = Player(pName, 100, random.randint(1,10), random.randint(50, 100), ['Glock', 'Twig'], 5)
+player = Player(pName, 100, random.randint(1,10), random.randint(50, 100), [], 0, 1)
 run = True
 while run:
     if player.health<=0:
@@ -236,13 +264,15 @@ while run:
     if player.hunger<=0:
         print("You died from hunger loss!")
         break
-    john = NPC("john", 100, 4)
-    Hut= NPC("Hut", 50, 2)
-    Rud= NPC("Rud", 10, 15)
-    rabbit= Animal(10, 1, "rabbeat")
-    buffalo=Animal(20, 2, "beef")
-    frog=Animal(15, 1, "meat")
-    print(" - What would you like to do?:")
+    if player.hunger<=25:
+        print(f"You have {player.hunger} hunger left! Make sure it doesn't reach 0!")
+    john = NPC("john", 1000, 4)
+    Hut= NPC("Hut", 5000, 2)
+    Rud= NPC("Rud", 700, 15)
+    rabbit= Animal(100, 1, "rabbeat")
+    buffalo=Animal(200, 2, "beef")
+    frog=Animal(150, 1, "meat")
+    print(" - What would you like to do?(type a number):")
     print("[1] - Check Stats")
     print("[2] - Fight")
     print("[3] - Quit")
@@ -250,6 +280,8 @@ while run:
     print("[5] - Armory")
     print("[6] - Work")
     print("[7] - Hunt")
+    print("[8] - Eat")
+    print("[9] - Rebirth")
     option = input("- ")
     if option.lower() == "check stats" or int(option) == 1:
         player.checkStats()
@@ -275,6 +307,12 @@ while run:
     elif int(option)== 7:
         player.hunt()
         player.losehunger()
+    elif int(option)== 8:
+        askfood=input("What food do you want to eat? (rabbeat, meat, or beef) type the name").lower()
+        player.eat()
+    elif int(option)==9:
+        player.reborn()
     elif int(option) == 3:
         run = False
+
     
