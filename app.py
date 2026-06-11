@@ -31,8 +31,6 @@ class Player:
                     if name["name"] == self.inventory[i] and self.inventory[i] == typee.capitalize():
                         opponent.health = opponent.health - name['atk']
                         self.health -= opponent.damage
-                        hungerloss=random.randint(1, 5)
-                        self.hunger -= hungerloss   
                         if opponent.health <= 0:
                             opponent.health = 0
                             print(f"{opponent.name} is DEAD.")
@@ -160,7 +158,27 @@ class Player:
         stringsel = random.randint(0, 9)
         print(workstrings[stringsel]['text'])
         print(f"You now have {payment}")
-
+    def eat(self, food):
+        while self.hunger<100:
+            for i in self.inventory:
+                if food=="rabbeat":
+                    self.inventory.remove("rabbeat")
+                    self.hunger= self.hunger+15
+                    break
+                elif food=="beef":
+                    self.inventory.remove("beef")
+                    self.hunger= self.hunger+35
+                    break
+                elif food=="meat":
+                    self.inventory.remove("raw meat")
+                    self.hunger=self.hunger+22
+                    break
+            else: 
+                print("You have max hunger!")
+                break
+    def losehunger(self):
+        losehunger=random.randint(1,5)
+        self.hunger=self.hunger-losehunger
 class Animal:
     def __init__(self, health, damage, drop):
         self.health=health
@@ -196,9 +214,9 @@ while run:
     john = NPC("john", 100, 4)
     Hut= NPC("Hut", 50, 2)
     Rud= NPC("Rud", 10, 15)
-    rabbit= Animal(10, 1, "Rabbit meat")
-    buffalo=Animal(20, 2, "Beef")
-    frog=Animal(15, 1, "Raw meat")
+    rabbit= Animal(10, 1, "rabbeat")
+    buffalo=Animal(20, 2, "beef")
+    frog=Animal(15, 1, "meat")
     print(" - What would you like to do?:")
     print("[1] - Check Stats")
     print("[2] - Fight")
