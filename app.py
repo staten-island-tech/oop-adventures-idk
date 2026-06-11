@@ -82,7 +82,7 @@ class Player:
     def hunt(self):
         if "Hunting Knife" not in self.inventory:
             print("Go get a hunting knife!")
-        else: 
+        else:
                 n=1
                 huntingchance=random.randint(1,4)
                 if huntingchance==1:
