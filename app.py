@@ -29,8 +29,7 @@ class Player:
             for name in items:
                 for i in range(len(self.inventory)):
                     if name["name"] == self.inventory[i] and self.inventory[i] == typee.capitalize():
-                        opponent.health = opponent.health - name['atk']
-                        self.health -= opponent.damage
+                        opponent.health = opponent.health - name['atk']*self.strength
                         if opponent.health <= 0:
                             opponent.health = 0
                             print(f"{opponent.name} is DEAD.")
@@ -42,10 +41,11 @@ class Player:
                                 self.inventory.append(itemdecided)
                         elif self.health <= 0:
                             self.health = 0
-                            print(f"{opponent.name} is DEAD.")
+                            print(f"{self.name} is DEAD.")
                         elif opponent.health > 0:
                             print(f"- Attack successful, {opponent.name} lost {name["atk"]} health.")
-                            print(f"You took {opponent.damage} damage! You have {self.health} health left!")
+                            self.health=self.health-opponent.damage
+                            print(f"Your opponent attacks and you took {opponent.damage} damage! You have {self.health} health left!")
                             print(f"{self.name}'s HP: {self.health}")
                             print(f"{opponent.name}'s HP: {opponent.health}")
                             fightr=input("Would you like to attack again?").lower()
@@ -111,7 +111,7 @@ class Player:
                             rabbit.health=10
                         elif self.health<=0:
                             print("Your character died")
-                            run=False
+                            break
 
                 elif huntingchance==2:
                     print("You encountered a buffalo!")
@@ -129,7 +129,7 @@ class Player:
                             buffalo.health=20
                     elif self.health<=0:
                             print("Your character died")
-                            run=False
+                            
                 elif huntingchance==3:
                     print("You enounter a frog!")
                     while frog.health!=0 or self.health<=0:
@@ -146,7 +146,6 @@ class Player:
                             frog.health=15
                     elif self.health<=0:
                             print("Your character died!")
-                            run=False
                 elif huntingchance==4:
                     print("You found nothing!")
     def takedamage(self, amount):
@@ -199,9 +198,7 @@ class Player:
                     break
             else:
                 print("You don't have any food")
-    def characterdie(self):
-        if self.hunger<=0:
-            playerstatus=0
+ 
 class Animal:
     def __init__(self, health, damage, drop):
         self.health=health
@@ -231,9 +228,14 @@ class NPC:
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,                                hunger          inventory balance
-player = Player(pName, 1, random.randint(1, 10), random.randint(50, 100), ['Glock', 'Twig'], 5)
+player = Player(pName, 100, random.randint(1,10), random.randint(50, 100), ['Glock', 'Twig'], 5)
 run = True
-while run:        
+while run:
+    if player.health<=0:
+        break
+    if player.hunger<=0:
+        print("You died from hunger loss!")
+        break
     john = NPC("john", 100, 4)
     Hut= NPC("Hut", 50, 2)
     Rud= NPC("Rud", 10, 15)
