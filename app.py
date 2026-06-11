@@ -157,7 +157,7 @@ class Player:
         self.balance=payment
         stringsel = random.randint(0, 9)
         print(workstrings[stringsel]['text'])
-        print(f"You now have {payment}")
+        print(f"You now have a balance of {payment} ")
     def eat(self, food):
         while self.hunger<100:
             for i in self.inventory:
@@ -179,6 +179,29 @@ class Player:
     def losehunger(self):
         losehunger=random.randint(1,5)
         self.hunger=self.hunger-losehunger
+    def eat(self, food):
+        for i in self.inventory:
+            while self.hunger<100:
+                if food=="rabbeat":
+                    self.inventory.remove("rabbeat")
+                    self.hunger=self.hunger+15
+                    print(f"You have {self.hunger} hunger now!")
+                    break
+                if food=="beef":
+                    self.inventory.remove("beef")
+                    self.hunger=self.hunger+30
+                    print(f"You have {self.hunger} hunger now!")
+                    break
+                if food=="meat":
+                    self.inventory.remove("meat")
+                    self.hunger=self.hunger+20
+                    print(f"You have {self.hunger} hunger now!")
+                    break
+            else:
+                print("You don't have any food")
+    def characterdie(self):
+        if self.hunger<=0:
+            playerstatus=0
 class Animal:
     def __init__(self, health, damage, drop):
         self.health=health
@@ -228,7 +251,8 @@ while run:
     option = input("- ")
     if option.lower() == "check stats" or int(option) == 1:
         player.checkStats()
-    elif int(option) == 2:    
+    elif int(option) == 2:
+        player.losehunger()    
         fii=input("Who would you like to fight: John, Hut, or Rud").lower()
         if fii=="john":
             john.fixhealth()
@@ -245,8 +269,10 @@ while run:
         player.armorequip()
     elif int(option) == 6:
         player.work()
+        player.losehunger()
     elif int(option)== 7:
         player.hunt()
+        player.losehunger()
     elif int(option) == 3:
         run = False
     
