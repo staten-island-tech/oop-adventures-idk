@@ -25,12 +25,27 @@ class Player:
         print(f"Defense: {self.defense}")
         print(f"Rebirths: {self.rebirth}")
     def fight(self, opponent):
+<<<<<<< Updated upstream
         print("What weapon would you like to use?(type weapon name):")
         for i, name in enumerate(self.inventory):
             print(f"{i+1}. {name}")
         typee=input("- ").lower()
+=======
+        print("What weapon would you like to use?(type weapon name):\n- ")
+        weaponsInInventory = []
+        for i in range(len(self.inventory)):
+            if items[i]['type'] == "weapon":
+                weaponsInInventory.append(items[i]['name'])
+>>>>>>> Stashed changes
 
-        while opponent.health>0 and self.health>0:
+#        for i, name in enumerate(self.inventory):
+#            print(f"{i+1}. {name}")
+        for i in weaponsInInventory:
+            print(i)
+
+        weaponchoice=input("- ").lower()
+        continuefighting = "yes"
+        while opponent.health>0 and self.health>0 and continuefighting == "yes":
             for name in items:
                 for i in range(len(self.inventory)):
                     if name["name"] == self.inventory[i] and self.inventory[i] == typee.capitalize():
@@ -45,16 +60,21 @@ class Player:
                                 print(f"You got a drop from defeating {opponent.name}")
                                 self.inventory.append(itemdecided)
                         elif self.health <= 0:
+<<<<<<< Updated upstream
                             print(f"{self.name} is DEAD.")
+=======
+                            print(f"{self.name} is dead.")
+
+>>>>>>> Stashed changes
                         elif opponent.health > 0:
                             print(f"- Attack successful, {opponent.name} lost {name["atk"]*self.strength} health.")
                             self.health=round(self.health-(opponent.damage*self.defense))
-                            print(f"Your opponent attacks and you took {round(opponent.damage*self.defense)} damage! You have {self.health} health left!")
+                            print(f"Your opponent attacks and you took {round(opponent.damage*self.defense)} damage. You have {self.health} health left!")
                             print(f"{self.name}'s HP: {self.health}")
                             print(f"{opponent.name}'s HP: {opponent.health}")
-                            fightr=input("Would you like to attack again?").lower()
-                            if fightr=="no": 
-                                break
+                            keepgoing=input("Would you like to attack again?\n- ").lower()
+                            if keepgoing =="no": 
+                                continuefighting == "no"
                             
     def shop(self):
         print(f"What would you like to buy?\nMenu: ")
@@ -74,25 +94,28 @@ class Player:
                     print("Insufficient funds!")
     def armorequip(self):
         while True:
-            for i in self.inventory:
-                if i=="Car":
+            for scan in self.inventory:
+                if scan =="Car":
                     Car=input("Would you like to equip 'Car'? If you want other options type no\n- ").lower()
                     if Car=="yes":
                         self.defense=items[4]["def"]*self.defense
                         print(f"You take 3% less damage now!")
                         self.inventory.remove("Car")
-                elif i=="Duck":
+
+                elif scan =="Duck":
                     Duck=input("Would you like to equip 'Duck' If you want other options type no\n- ").lower()
                     if Duck=="yes":
                         self.defense=items[3]["def"]*self.defense
                         print(f"You take 2% less damage now!")
                         self.inventory.remove("Duck")
-                elif i=="Impenetrable Armor":
+
+                elif scan =="Impenetrable Armor":
                     Impenarmor=input("Would you like to equip 'Impenetrable Armor'?\n- ").lower()
                     if Impenarmor=="yes":
                         self.defense=items[6]["def"]*self.defense
                         print(f"You take 10% less damage now!")
                         self.inventory.remove("Impenetrable Armor")
+                        
                 elif "Impenetrable Armor" not in self.inventory and "Duck" not in self.inventory and "Car" not in self.inventory:
                     print("You have no armor in your inventory!")
                     break
@@ -233,6 +256,7 @@ class Player:
                 self.health=self.health*self.rebirth
                 self.strength=self.strength*self.rebirth
                 self.defense=self.defense-(self.rebirth/10)
+                print("You have successfully rebirthed!\n[Check Stats] to see upgrades.")
             elif self.balance-rebirthamount<0:
                 print("You need more coins in your balance!")
  
@@ -243,7 +267,10 @@ class Animal:
         self.drop=drop
     def takedamage(self, amount):
         self.health-=amount
-        print(f"The animal has {self.health} health left")
+        if self.health < 0:
+            print("The animal is dead.")
+        elif self.health > 0:
+            print(f"The animal has {self.health} health left")
             
 class NPC:
     def __init__(self, name, health, damage):
@@ -257,14 +284,8 @@ class NPC:
             self.health=5000
         elif self.name=="john":
             self.health=1000
-#heree
-
-
-        
-
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
-#               name,  health, strength,                                hunger          inventory balance
 player = Player(pName, 100, random.randint(1,10), random.randint(50, 100), ['Twig'], 10000000, 1, random.uniform(.95, 1))
 run = True
 while run:
@@ -296,7 +317,7 @@ while run:
         player.checkStats()
     elif int(option) == 2:
         player.losehunger()    
-        fii=input("Who would you like to fight: John, Hut, or Rud").lower()
+        fii=input("Who would you like to fight: John, Hut, or Rud?\n- ").lower()
         if fii=="john":
             john.fixhealth()
             player.fight(john)

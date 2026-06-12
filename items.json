@@ -59,6 +59,7 @@
     {
         "id": 9,
         "name": "Hunting Knife",
+        "type": "weapon",
         "cost": 3
     }
 ]
