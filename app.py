@@ -28,24 +28,26 @@ class Player:
         print("What weapon would you like to use?(type weapon name):")
         for i, name in enumerate(self.inventory):
             print(f"{i+1}. {name}")
-        typee=input("- ").lower()
+        weaponchoice=input("- ").lower()
 
         while opponent.health>0 and self.health>0:
             for name in items:
                 for i in range(len(self.inventory)):
-                    if name["name"] == self.inventory[i] and self.inventory[i] == typee.capitalize():
+                    if name["name"] == self.inventory[i] and self.inventory[i] == weaponchoice.capitalize():
                         opponent.health = opponent.health - name['atk']*self.strength
+
                         if opponent.health <= 0:
                             opponent.health = 0
-                            print(f"{opponent.name} is DEAD.")
+                            print(f"{opponent.name} is dead.")
                             dropdecider=random.randint(1,4)
                             itemdecider= random.randint(0,8)
                             itemdecided=items[itemdecider]
                             if dropdecider==1:
                                 print(f"You got a drop from defeating {opponent.name}")
                                 self.inventory.append(itemdecided)
+
                         elif self.health <= 0:
-                            print(f"{self.name} is DEAD.")
+                            print(f"{self.name} is dead.")
                         elif opponent.health > 0:
                             print(f"- Attack successful, {opponent.name} lost {name["atk"]*self.strength} health.")
                             self.health=round(self.health-(opponent.damage*self.defense))
