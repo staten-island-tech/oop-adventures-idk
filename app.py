@@ -76,19 +76,19 @@ class Player:
         while True:
             for i in self.inventory:
                 if i=="Car":
-                    Car=input("Would you like to equip 'Car'? If you want other options type no").lower()
+                    Car=input("Would you like to equip 'Car'? If you want other options type no\n- ").lower()
                     if Car=="yes":
                         self.defense=items[4]["def"]*self.defense
                         print(f"You take 3% less damage now!")
                         self.inventory.remove("Car")
                 elif i=="Duck":
-                    Duck=input("Would you like to equip 'Duck' If you want other options type no").lower()
+                    Duck=input("Would you like to equip 'Duck' If you want other options type no\n- ").lower()
                     if Duck=="yes":
                         self.defense=items[3]["def"]*self.defense
                         print(f"You take 2% less damage now!")
                         self.inventory.remove("Duck")
                 elif i=="Impenetrable Armor":
-                    Impenarmor=input("Would you like to equip 'Impenetrable Armor'").lower()
+                    Impenarmor=input("Would you like to equip 'Impenetrable Armor'?\n- ").lower()
                     if Impenarmor=="yes":
                         self.defense=items[6]["def"]*self.defense
                         print(f"You take 10% less damage now!")
@@ -105,7 +105,7 @@ class Player:
                 if huntingchance==1:
                     print("You encountered a rabbit!")
                     while rabbit.health>=0 or self.health>=0:
-                        attack=input("Would you like to attack?").lower()
+                        attack=input("Would you like to attack?\n- ").lower()
                         if attack!="no":
                             rabbit.takedamage(5*self.strength)
                             finaldmg=round(rabbit.damage*self.defense)
@@ -125,7 +125,7 @@ class Player:
                 elif huntingchance==2:
                     print("You encountered a buffalo!")
                     while buffalo.health>=0 or self.health>=0:
-                            attack=input("Would you like to attack?").lower()
+                            attack=input("Would you like to attack?\n- ").lower()
                             if attack!="no":
                                 buffalo.takedamage(5*self.strength)
                                 finaldmg=round(buffalo.damage*self.defense)
@@ -144,7 +144,7 @@ class Player:
                 elif huntingchance==3:
                     print("You enounter a frog!")
                     while frog.health>=0 or self.health>=0:
-                            attack=input("Would you like to attack?").lower()
+                            attack=input("Would you like to attack?\n- ").lower()
                             if attack!="no":
                                 frog.takedamage(5*self.strength)
                                 finaldmg=round(frog.damage*self.defense)
@@ -225,7 +225,7 @@ class Player:
                 print("You don't have any food")
     def reborn(self):
         rebirthamount=1.5*200*self.rebirth
-        askrebirth=input(f"Would you like the rebirth for {rebirthamount} coins? You will gain more strength, health, defense and money gain.").lower()
+        askrebirth=input(f"Would you like the rebirth for {rebirthamount} coins? You will gain more strength, health, defense and money gain.\n- ").lower()
         if askrebirth=="yes":
             if self.balance-rebirthamount>=0:
                 self.rebirth=self.rebirth+1
@@ -317,7 +317,7 @@ while run:
         player.hunt()
         player.losehunger()
     elif int(option)== 8:
-        askfood=input("What food do you want to eat? (rabbeat, meat, or beef) type the name").lower()
+        askfood=input("What food do you want to eat? (rabbeat, meat, or beef)\n- ").lower()
         player.eat()
     elif int(option)==9:
         player.reborn()
