@@ -254,11 +254,11 @@ class NPC:
         self.damage=damage
     def fixhealth(self):
         if self.name=="Rud":
-            self.health=1000
-        elif self.name=="Hut":
-            self.health=1500
-        elif self.name=="john":
             self.health=500
+        elif self.name=="Hut":
+            self.health=750
+        elif self.name=="john":
+            self.health=250
 #heree
 
 
@@ -277,9 +277,9 @@ while run:
         break
     if player.hunger<=25:
         print(f"You have {player.hunger} hunger left! Make sure it doesn't reach 0! (Hunt for food)")
-    john = NPC("john", 500, 4)
-    Hut= NPC("Hut", 1500, 2)
-    Rud= NPC("Rud", 1000, 15)
+    john = NPC("john", 250, 4)
+    Hut= NPC("Hut", 750, 2)
+    Rud= NPC("Rud", 500, 15)
     rabbit= Animal(100, 1, "rabbeat")
     buffalo=Animal(200, 2, "beef")
     frog=Animal(150, 1, "meat")
