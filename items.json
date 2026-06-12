@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "Twig",
-        "atk": 0,  
+        "atk": 5,  
         "type": "weapon",
         "cost": 6
     },
