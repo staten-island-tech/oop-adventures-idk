@@ -5,7 +5,7 @@ with open('workstrings.json', 'r', encoding='utf-8') as file:
     workstrings = json.load(file)
 
 class Player:
-    def __init__(self, name, health, strength, hunger, inventory, balance, rebirth):
+    def __init__(self, name, health, strength, hunger, inventory, balance, rebirth, defense):
         self.name = name
         self.health = health
         self.strength = strength
@@ -13,6 +13,7 @@ class Player:
         self.inventory = inventory
         self.balance = balance
         self.rebirth= rebirth
+        self.defense=defense
     def checkStats(self):
         print(" -- PLAYER STATS -- ")
         print(f"Name: {self.name}")
@@ -21,12 +22,14 @@ class Player:
         print(f"Hunger: {self.hunger}")
         print(f"Inventory: {self.inventory}")
         print(f"Balance: {self.balance}")
+        print(f"Defense: {self.defense}")
         print(f"Rebirths: {self.rebirth}")
     def fight(self, opponent):
         print("What weapon would you like to use?(type weapon name):")
         for i, name in enumerate(self.inventory):
             print(f"{i+1}. {name}")
         typee=input("- ").lower()
+
         while opponent.health>0 and self.health>0:
             for name in items:
                 for i in range(len(self.inventory)):
@@ -42,12 +45,11 @@ class Player:
                                 print(f"You got a drop from defeating {opponent.name}")
                                 self.inventory.append(itemdecided)
                         elif self.health <= 0:
-                            self.health = 0
                             print(f"{self.name} is DEAD.")
                         elif opponent.health > 0:
-                            print(f"- Attack successful, {opponent.name} lost {name["atk"]} health.")
-                            self.health=self.health-opponent.damage
-                            print(f"Your opponent attacks and you took {opponent.damage} damage! You have {self.health} health left!")
+                            print(f"- Attack successful, {opponent.name} lost {name["atk"]*self.strength} health.")
+                            self.health=round(self.health-(opponent.damage*self.defense))
+                            print(f"Your opponent attacks and you took {round(opponent.damage*self.defense)} damage! You have {self.health} health left!")
                             print(f"{self.name}'s HP: {self.health}")
                             print(f"{opponent.name}'s HP: {opponent.health}")
                             fightr=input("Would you like to attack again?").lower()
@@ -74,21 +76,24 @@ class Player:
         while True:
             for i in self.inventory:
                 if i=="Car":
-                    Car=input("Would you like to equip 'Car'?").lower()
+                    Car=input("Would you like to equip 'Car'? If you want other options type no").lower()
                     if Car=="yes":
-                        self.health=120
-                        print(f"You have {self.health} health now!")
+                        self.defense=items[4]["def"]*self.defense
+                        print(f"You take 3% less damage now!")
+                        self.inventory.remove("Car")
                 elif i=="Duck":
-                    Duck=input("Would you like to equip 'Duck'").lower()
+                    Duck=input("Would you like to equip 'Duck' If you want other options type no").lower()
                     if Duck=="yes":
-                        self.health=110
-                        print(f"You have {self.health} health now!")
+                        self.defense=items[3]["def"]*self.defense
+                        print(f"You take 2% less damage now!")
+                        self.inventory.remove("Duck")
                 elif i=="Impenetrable Armor":
                     Impenarmor=input("Would you like to equip 'Impenetrable Armor'").lower()
                     if Impenarmor=="yes":
-                        self.health=101
-                        print(f"You have {self.health} health now!")
-                else:
+                        self.defense=items[6]["def"]*self.defense
+                        print(f"You take 10% less damage now!")
+                        self.inventory.remove("Impenetrable Armor")
+                elif "Impenetrable Armor" not in self.inventory and "Duck" not in self.inventory and "Car" not in self.inventory:
                     print("You have no armor in your inventory!")
                     break
             break
@@ -103,14 +108,15 @@ class Player:
                         attack=input("Would you like to attack?").lower()
                         if attack!="no":
                             rabbit.takedamage(5*self.strength)
-                            self.takedamage(rabbit.damage)
+                            finaldmg=round(rabbit.damage*self.defense)
+                            self.takedamage(finaldmg)
                         else: 
                             print("ok")
                             break
                         if rabbit.health<=0:
                                 print("You have successfully skewered the rabbit and got rabbeat!")
                                 self.inventory.append(rabbit.drop)
-                                rabbit.health=10
+                                rabbit.health=100
                                 break
                         elif self.health<=0:
                             print("Your character died")
@@ -122,14 +128,15 @@ class Player:
                             attack=input("Would you like to attack?").lower()
                             if attack!="no":
                                 buffalo.takedamage(5*self.strength)
-                                self.takedamage(buffalo.damage)
+                                finaldmg=round(buffalo.damage*self.defense)
+                                self.takedamage(finaldmg)
                             else: 
                                 print("ok")
                                 break
                             if buffalo.health<=0:
                                     print("it died. You got beef.")
                                     self.inventory.append(buffalo.drop)
-                                    buffalo.health=20
+                                    buffalo.health=200
                                     break
                             elif self.health<=0:
                                 print("Your character died")
@@ -140,14 +147,15 @@ class Player:
                             attack=input("Would you like to attack?").lower()
                             if attack!="no":
                                 frog.takedamage(5*self.strength)
-                                self.takedamage(frog.damage)
+                                finaldmg=round(frog.damage*self.defense)
+                                self.takedamage(finaldmg)
                             else: 
                                 print("ok")
                                 break
                             if frog.health<=0:
                                     print("Congrats! You murdered the frog! Meat has been added to your inventory")
                                     self.inventory.append(frog.drop)
-                                    frog.health=15
+                                    frog.health=150
                                     break
                             elif self.health<=0:
                                     print("Your character died!")
@@ -217,13 +225,14 @@ class Player:
                 print("You don't have any food")
     def reborn(self):
         rebirthamount=1.5*200*self.rebirth
-        askrebirth=input(f"Would you like the rebirth for {rebirthamount} coins? You will gain more strength, health, and money gain.").lower()
+        askrebirth=input(f"Would you like the rebirth for {rebirthamount} coins? You will gain more strength, health, defense and money gain.").lower()
         if askrebirth=="yes":
             if self.balance-rebirthamount>=0:
                 self.rebirth=self.rebirth+1
                 self.balance=self.balance-rebirthamount
                 self.health=self.health*self.rebirth
                 self.strength=self.strength*self.rebirth
+                self.defense=self.defense-(self.rebirth/10)
             elif self.balance-rebirthamount<0:
                 print("You need more coins in your balance!")
  
@@ -243,11 +252,11 @@ class NPC:
         self.damage=damage
     def fixhealth(self):
         if self.name=="Rud":
-            self.health=10
+            self.health=700
         elif self.name=="Hut":
-            self.health=50
+            self.health=5000
         elif self.name=="john":
-            self.health=100
+            self.health=1000
 #heree
 
 
@@ -256,7 +265,7 @@ class NPC:
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,                                hunger          inventory balance
-player = Player(pName, 100, random.randint(1,10), random.randint(50, 100), [], 0, 1)
+player = Player(pName, 100, random.randint(1,10), random.randint(50, 100), ['Twig'], 10000000, 1, random.uniform(.95, 1))
 run = True
 while run:
     if player.health<=0:
@@ -265,7 +274,7 @@ while run:
         print("You died from hunger loss!")
         break
     if player.hunger<=25:
-        print(f"You have {player.hunger} hunger left! Make sure it doesn't reach 0!")
+        print(f"You have {player.hunger} hunger left! Make sure it doesn't reach 0! (Hunt for food)")
     john = NPC("john", 1000, 4)
     Hut= NPC("Hut", 5000, 2)
     Rud= NPC("Rud", 700, 15)

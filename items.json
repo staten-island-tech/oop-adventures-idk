@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "Twig",
-        "atk": 5,  
+        "atk": 0,  
         "type": "weapon",
         "cost": 6
     },
@@ -23,7 +23,7 @@
     {
         "id": 4, 
         "name": "Duck",
-        "hp": 10,
+        "def": 0.98,
         "type": "armor",
         "cost": 10
 
@@ -31,21 +31,21 @@
     {
         "id": 5, 
         "name": "Car",
-        "hp": 20,
+        "def": 0.97,
         "type": "armor",
         "cost": 15
     },
     {
         "id": 6, 
         "name": "Excalibur",
-        "atk": 1,
+        "atk": 100,
         "type": "weapon",
         "cost": 100
     },
     {
         "id": 7, 
         "name": "Impenetrable Armor",
-        "hp": 1,
+        "def": 0.9,
         "type": "armor",
         "cost": 100
     },
