@@ -185,7 +185,7 @@ class Player:
                     self.hunger= self.hunger+35
                     break
                 elif food=="meat":
-                    self.inventory.remove("raw meat")
+                    self.inventory.remove("meat")
                     self.hunger=self.hunger+22
                     break
             else: 
