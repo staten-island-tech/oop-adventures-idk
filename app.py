@@ -267,7 +267,7 @@ class NPC:
 
 pName = input("What do you want the player's name to be?\n*Stats will be randomized\n- ")
 #               name,  health, strength,                                hunger          inventory balance
-player = Player(pName, 100, random.randint(1,10), random.randint(50, 100), ['Twig'], 10000000, 1, random.uniform(.95, 1))
+player = Player(pName, 100, random.randint(1,10), random.randint(50, 100), ['Twig'], 5, 1, random.uniform(.95, 1))
 run = True
 while run:
     if player.health<=0:
